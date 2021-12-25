@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ElectricalCalculators.Calculators.OhmsLaw.Models;
-using ElectricalCalculators.GlobalModels;
+using ElectricalCalculators.Models;
 using System.Windows;
+using ElectricalCalculators.Models.Prefixes;
+using ElectricalCalculators.Models.OhmsLaw;
 
 namespace ElectricalCalculators.Calculators.OhmsLaw
 {
@@ -47,7 +48,7 @@ namespace ElectricalCalculators.Calculators.OhmsLaw
             try
             {
 
-                var GetValue = GlobalModels.Prefixes.Getvalue;
+                var GetValue = PrefixModel.Getvalue;
                 VoltageInput = Voltage != 0 && Voltage is not null;
                 ResistanceInput = Resistance != 0 && Resistance is not null;
                 CurrentInput = Current != 0 && Current is not null;

@@ -4,28 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ElectricalCalculators.Calculators.OhmsLaw"
-             xmlns:models="clr-namespace:ElectricalCalculators.GlobalModels"
+             xmlns:models="clr-namespace:ElectricalCalculators.Models.Prefixes"
              xmlns:converters="clr-namespace:ElectricalCalculators.Utils.Converters"
              mc:Ignorable="d">
     <UserControl.Resources>
         <ObjectDataProvider
             x:Key="PrefixesData"
-            ObjectType="{x:Type models:Prefixes}"
+            ObjectType="{x:Type models:PrefixModel}"
             MethodName="GetAllPrefixes"
         />
         <converters:InputColorConverter x:Key="InputConverter"/>
     </UserControl.Resources>
     <Grid>
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Column="0">
+        <Border Grid.Row="0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -115,12 +111,6 @@
             </Grid>
         </Border>
 
-        <!--<Expander ExpandDirection="Left" Grid.Column="1">
-            <Image Grid.Column="1" Width="300" Source="/Resources/OhmsLawWheel.jpg"/>
-        </Expander>-->
-
-        <Expander ExpandDirection="Up" Grid.Row="1">
-            <Image Grid.Column="1" Width="300" Source="/Resources/OhmsLawWheel.jpg"/>
-        </Expander>
+        <Image Grid.Row="1" Width="300" Source="/Resources/OhmsLawWheel.jpg"/>
     </Grid>
 </UserControl>

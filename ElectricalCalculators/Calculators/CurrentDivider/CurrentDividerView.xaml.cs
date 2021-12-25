@@ -13,20 +13,27 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ElectricalCalculators.Calculators.OhmsLaw
+namespace ElectricalCalculators.Calculators.CurrentDivider
 {
     /// <summary>
-    /// Interaction logic for OhmsLawView.xaml
+    /// Interaction logic for CurrentDividerView.xaml
     /// </summary>
-    public partial class OhmsLawView : UserControl
+    public partial class CurrentDividerView : UserControl
     {
-        //public Dictionary<int, string> PrefixesDict = Prefixes.AllPrefixes
-        public OhmsLawViewModel VM { get; set; }
-        public OhmsLawView()
+        public CurrentDividerViewModel VM { get; init; }
+        public CurrentDividerView()
         {
             VM = new();
             DataContext = VM;
             InitializeComponent();
+
+            //ResistorList.KeyDown += UpdateResistorList;
+            ResistorList.LostKeyboardFocus += UpdateResistorList;
+        }
+
+        private void UpdateResistorList(object sender, EventArgs e)
+        {
+            VM.Calculate();
         }
     }
 }

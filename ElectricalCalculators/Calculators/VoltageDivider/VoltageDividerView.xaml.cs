@@ -13,16 +13,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ElectricalCalculators.Calculators.OhmsLaw
+namespace ElectricalCalculators.Calculators.VoltageDivider
 {
     /// <summary>
-    /// Interaction logic for OhmsLawView.xaml
+    /// Interaction logic for VoltageDividerView.xaml
     /// </summary>
-    public partial class OhmsLawView : UserControl
+    public partial class VoltageDividerView : UserControl
     {
-        //public Dictionary<int, string> PrefixesDict = Prefixes.AllPrefixes
-        public OhmsLawViewModel VM { get; set; }
-        public OhmsLawView()
+        public VoltageDividerViewModel VM { get; init; }
+        public VoltageDividerView()
         {
             VM = new();
             DataContext = VM;

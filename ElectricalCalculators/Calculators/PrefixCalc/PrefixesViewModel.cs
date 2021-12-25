@@ -1,6 +1,6 @@
-﻿using ElectricalCalculators.Calculators.Prefixes.Models;
-using ElectricalCalculators.Calculators.Prefixes.Models.Enums;
-using ElectricalCalculators.GlobalModels;
+﻿using ElectricalCalculators.Models;
+using ElectricalCalculators.Models.Prefixes;
+using ElectricalCalculators.Models.Prefixes.Enums;
 using MVVMLibrary;
 using System;
 using System.Collections.Generic;
@@ -15,7 +15,7 @@ namespace ElectricalCalculators.Calculators.Prefixes
     {
         #region Background Props
         private string? _input = null;
-        private Number _number = new();
+        private Number _number = new(PrefixType.All);
         private PrefixOption _prefixOption = PrefixOption.Lowest;
         private History<string> _history = new();
 

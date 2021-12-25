@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElectricalCalculators.Calculators.OhmsLaw.Models
+namespace ElectricalCalculators.Models.OhmsLaw
 {
     public static class OhmsLawCalculator
     {
@@ -65,7 +65,7 @@ namespace ElectricalCalculators.Calculators.OhmsLaw.Models
             }
         }
 
-        private static double CalcRes(double voltage, double current, double power)
+        public static double CalcRes(double voltage, double current, double power)
         {
             if (voltage != 0)
             {
@@ -84,7 +84,7 @@ namespace ElectricalCalculators.Calculators.OhmsLaw.Models
             }
         }
 
-        private static double CalcCurr(double voltage, double resist, double pwr)
+        public static double CalcCurr(double voltage, double resist, double pwr)
         {
             if (voltage != 0)
             {
@@ -103,7 +103,7 @@ namespace ElectricalCalculators.Calculators.OhmsLaw.Models
             }
         }
 
-        private static double CalcPwr(double voltage, double resist, double curr)
+        public static double CalcPwr(double voltage, double resist, double curr)
         {
             if (voltage != 0)
             {

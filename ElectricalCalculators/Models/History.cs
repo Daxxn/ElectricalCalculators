@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElectricalCalculators.Calculators.Prefixes.Models
+namespace ElectricalCalculators.Models
 {
     public class History<T> : Model
     {

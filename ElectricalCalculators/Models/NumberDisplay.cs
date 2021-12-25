@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ElectricalCalculators.Models
 {
-    public class Number : Model
+    public class NumberDisplay : Model
     {
         #region Local Props
         private double _base = 0;
@@ -17,8 +17,7 @@ namespace ElectricalCalculators.Models
         private double _raw = 0;
         private string _prefix = "";
         private string _shortPrefix = "";
-        private int _prefixExp = 0;
-        private double _prefixBase = 0;
+        private bool _disableAutoCalc = false;
         private PrefixType _prefixType = PrefixType.All;
         private Dictionary<int, string> _prefixes = new();
         private Dictionary<int, string> _shortPrefixes = new();
@@ -26,41 +25,42 @@ namespace ElectricalCalculators.Models
         #endregion
 
         #region Constructors
-        public Number(PrefixType type)
+        public NumberDisplay(PrefixType type)
         {
             Prefixes = PrefixModel.GetPrefixes(type);
             ShortPrefixes = PrefixModel.GetShortPrefixes(type);
+        }
+        public NumberDisplay(PrefixType type, int round)
+        {
+            Prefixes = PrefixModel.GetPrefixes(type);
+            ShortPrefixes = PrefixModel.GetShortPrefixes(type);
+            Round = round;
         }
         #endregion
 
         #region Methods
         private void ParsePrefixes(PrefixOption option = PrefixOption.Lowest)
         {
-            (Prefix, PrefixExponent) = PrefixModel.GetPrefix(Exponent, option);
-            PrefixBase = Raw * Math.Pow(10, -PrefixExponent);
-        }
-
-        public void ParseNumber(double input)
-        {
-            Raw = input;
-            ParseNumber();
-            ParsePrefixes();
+            (Prefix, Exponent) = PrefixModel.GetPrefix(Exponent, option);
+            Base = Raw * Math.Pow(10, -Exponent);
         }
 
         public double CalcRaw()
         {
-            Raw = Base * Math.Pow(10, PrefixExponent);
+            Raw = Base * Math.Pow(10, Exponent);
+            _disableAutoCalc = true;
             ParsePrefixes();
-            PrefixBase = Base;
-            Prefix = Prefixes[PrefixExponent];
+            _disableAutoCalc = false;
+            Prefix = Prefixes[Exponent];
             return Raw;
         }
 
         /// <summary>
         /// Parses an incoming number, Gets the exponent and the base.
         /// </summary>
-        private void ParseNumber()
+        public void CalcBase()
         {
+            _disableAutoCalc = true;
             var ex = Math.Floor(Math.Log10(Raw > 0 ? Raw : -Raw));
             if (ex == 0)
             {
@@ -77,98 +77,48 @@ namespace ElectricalCalculators.Models
                 Exponent = -(int)ex;
             }
             Base = Raw * Math.Pow(10, -Exponent);
+            ParsePrefixes();
+            _disableAutoCalc = false;
         }
-
-        #region Scientific Number Parsing
-        /// <summary>
-        /// Removes commas from the input number.
-        /// </summary>
-        /// <param name="input">Raw input</param>
-        /// <returns></returns>
-        private static string CleanInput(string input)
-        {
-            return input.Replace(",", "");
-        }
-
-        /// <summary>
-        /// Parses an incoming number from the user and converts the number to
-        /// a scientific number.
-        /// </summary>
-        /// <param name="value">Raw input</param>
-        /// <param name="option"></param>
-        /// <exception cref="Exception">Throwm if the numbers base or exponent could not parse.</exception>
-        /// <exception cref="ArgumentException">Thrown if the string is not parsable at all.</exception>
-        public void Parse(string value, PrefixOption option)
-        {
-            string input = CleanInput(value);
-            if (input.Contains('e'))
-            {
-                var spl = input.Split('e');
-                if (spl.Length == 2)
-                {
-                    var success = double.TryParse(spl[0], out double _b);
-                    if (!success) throw new Exception("Unable to parse Base.");
-
-                    Base = _b;
-                    success = int.TryParse(spl[1], out int _e);
-                    if (!success) throw new Exception("Unable to parse Exponent.");
-
-                    Exponent = _e;
-                    Raw = Base * Math.Pow(10, Exponent);
-                    ParsePrefixes(option);
-                }
-                else
-                {
-                    throw new ArgumentException("Value is not recognized.");
-                }
-            }
-            else
-            {
-                if (!double.TryParse(input, out double _r)) throw new ArgumentException("Value cannot be parsed.");
-                Raw = _r;
-                ParseNumber();
-                ParsePrefixes(option);
-            }
-        }
-        #endregion
 
         #region Operators
-        public static Number operator +(Number x, Number y)
+        public static NumberDisplay operator +(NumberDisplay x, NumberDisplay y)
         {
-            Number output = new(x.PrefixType);
+            NumberDisplay output = new(x.PrefixType);
             output.Raw = x.Raw + y.Raw;
-            output.ParseNumber();
+            output.CalcBase();
             output.ParsePrefixes();
             return output;
         }
 
-        public static Number operator -(Number x, Number y)
+        public static NumberDisplay operator -(NumberDisplay x, NumberDisplay y)
         {
-            Number output = new(x.PrefixType);
+            NumberDisplay output = new(x.PrefixType);
             output.Raw = x.Raw - y.Raw;
-            output.ParseNumber();
+            output.CalcBase();
             output.ParsePrefixes();
             return output;
         }
 
-        public static Number operator /(Number x, Number y)
+        public static NumberDisplay operator /(NumberDisplay x, NumberDisplay y)
         {
-            Number output = new(x.PrefixType);
+            NumberDisplay output = new(x.PrefixType);
             output.Raw = x.Raw / y.Raw;
-            output.ParseNumber();
+            output.CalcBase();
             output.ParsePrefixes();
             return output;
         }
 
-        public static Number operator *(Number x, Number y)
+        public static NumberDisplay operator *(NumberDisplay x, NumberDisplay y)
         {
-            Number output = new(x.PrefixType);
+            NumberDisplay output = new(x.PrefixType);
             output.Raw = x.Raw * y.Raw;
-            output.ParseNumber();
+            output.CalcBase();
             output.ParsePrefixes();
             return output;
         }
         #endregion
+
         #endregion
 
         #region Full Props
@@ -178,6 +128,10 @@ namespace ElectricalCalculators.Models
             set
             {
                 _base = value;
+                if (!_disableAutoCalc)
+                {
+                    CalcRaw();
+                }
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(BaseRound));
             }
@@ -194,6 +148,10 @@ namespace ElectricalCalculators.Models
             set
             {
                 _exp = value;
+                if (!_disableAutoCalc)
+                {
+                    CalcRaw();
+                }
                 OnPropertyChanged();
             }
         }
@@ -204,7 +162,6 @@ namespace ElectricalCalculators.Models
             set
             {
                 _raw = value;
-                ParseNumber();
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(RawRound));
             }
@@ -233,32 +190,6 @@ namespace ElectricalCalculators.Models
                 _shortPrefix = value;
                 OnPropertyChanged();
             }
-        }
-
-        public int PrefixExponent
-        {
-            get => _prefixExp;
-            set
-            {
-                _prefixExp = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public double PrefixBase
-        {
-            get => _prefixBase;
-            set
-            {
-                _prefixBase = value;
-                OnPropertyChanged();
-                OnPropertyChanged(nameof(PrefixBaseRound));
-            }
-        }
-
-        public double PrefixBaseRound
-        {
-            get => Math.Round(_prefixBase, Round);
         }
 
         public int Round

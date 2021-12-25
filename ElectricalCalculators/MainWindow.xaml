@@ -13,12 +13,20 @@
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0">
-            
+            <MenuItem Header="Options">
+                <MenuItem Header="Typical Resistor Values" Click="TypicalResistors_Click"/>
+                <MenuItem Header="Typical Resistor Values" Click="TypicalCapacitors_Click"/>
+                <MenuItem Header="Typical Resistor Values" Click="TypicalInductors_Click"/>
+            </MenuItem>
         </Menu>
 
         <TabControl Grid.Row="1">
             <TabItem Header="Ohms Law" x:Name="OhmsLawTab"/>
             <TabItem Header="Metric Prefixes" x:Name="MetricPrefixTab"/>
+            <TabItem Header="Mil To Metric" x:Name="MilToMetricTab"/>
+            <TabItem Header="LED Current" x:Name="LEDCurrentTab"/>
+            <TabItem Header="Voltage Divider" x:Name="VoltageDividerTab"/>
+            <TabItem Header="Current Divider" x:Name="CurrentDividerTab"/>
         </TabControl>
     </Grid>
 </Window>
