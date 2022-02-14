@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElectricalCalculators.GlobalModels
+namespace ElectricalCalculators.Models
 {
     public interface ICalcManager
     {

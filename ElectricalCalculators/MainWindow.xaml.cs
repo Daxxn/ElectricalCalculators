@@ -1,6 +1,9 @@
-﻿using ElectricalCalculators.Calculators.CurrentDivider;
+﻿using ElectricalCalculators.Calculators.Binary;
+using ElectricalCalculators.Calculators.BomReader;
+using ElectricalCalculators.Calculators.CurrentDivider;
 using ElectricalCalculators.Calculators.LEDCurrent;
 using ElectricalCalculators.Calculators.MilToMetric;
+using ElectricalCalculators.Calculators.MOSFETCalc;
 using ElectricalCalculators.Calculators.OhmsLaw;
 using ElectricalCalculators.Calculators.Prefixes;
 using ElectricalCalculators.Calculators.VoltageDivider;
@@ -38,6 +41,9 @@ namespace ElectricalCalculators
             VoltageDividerTab.Content = new VoltageDividerView();
             CurrentDividerTab.Content = new CurrentDividerView();
             MilToMetricTab.Content = new MilToMetricView();
+            BinaryTab.Content = new BinaryView();
+            BOMTab.Content = new BomReaderView();
+            MOSFETTab.Content = new MOSFETCalcView();
         }
 
         private void TypicalResistors_Click(object sender, RoutedEventArgs e)

@@ -100,6 +100,9 @@ namespace ElectricalCalculators.Models
         /// <exception cref="ArgumentException">Thrown if the string is not parsable at all.</exception>
         public void Parse(string value, PrefixOption option)
         {
+            if (string.IsNullOrEmpty(value)) return;
+            if (string.IsNullOrWhiteSpace(value)) return;
+
             string input = CleanInput(value);
             if (input.Contains('e'))
             {
@@ -136,36 +139,35 @@ namespace ElectricalCalculators.Models
         public static Number operator +(Number x, Number y)
         {
             Number output = new(x.PrefixType);
-            output.Raw = x.Raw + y.Raw;
-            output.ParseNumber();
-            output.ParsePrefixes();
+            output.ParseNumber(x.Raw + y.Raw);
             return output;
         }
 
         public static Number operator -(Number x, Number y)
         {
             Number output = new(x.PrefixType);
-            output.Raw = x.Raw - y.Raw;
-            output.ParseNumber();
-            output.ParsePrefixes();
+            output.ParseNumber(x.Raw - y.Raw);
             return output;
         }
 
         public static Number operator /(Number x, Number y)
         {
             Number output = new(x.PrefixType);
-            output.Raw = x.Raw / y.Raw;
-            output.ParseNumber();
-            output.ParsePrefixes();
+            output.ParseNumber(x.Raw / y.Raw);
             return output;
         }
 
         public static Number operator *(Number x, Number y)
         {
             Number output = new(x.PrefixType);
-            output.Raw = x.Raw * y.Raw;
-            output.ParseNumber();
-            output.ParsePrefixes();
+            output.ParseNumber(x.Raw * y.Raw);
+            return output;
+        }
+
+        public static Number operator ^(Number x, Number e)
+        {
+            Number output = new(x.PrefixType);
+            output.ParseNumber(Math.Pow(x.Raw, e.Raw));
             return output;
         }
         #endregion

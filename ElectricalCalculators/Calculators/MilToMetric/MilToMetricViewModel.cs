@@ -1,4 +1,4 @@
-﻿using ElectricalCalculators.GlobalModels;
+﻿using ElectricalCalculators.Models;
 using ElectricalCalculators.Utils;
 using MVVMLibrary;
 using System;

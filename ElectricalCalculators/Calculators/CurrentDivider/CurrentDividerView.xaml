@@ -30,7 +30,12 @@
                 <TextBlock  Grid.Row="0" Grid.Column="0">VCC</TextBlock>
                 <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=VCC}"/>
                 <TextBlock  Grid.Row="1" Grid.Column="0">Total Resistance</TextBlock>
-                <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource OutputText}" Text="{Binding Path=TotalResRound}">
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Style="{StaticResource OutputText}"
+                    Text="{Binding Path=TotalResRound}"
+                >
                     <TextBlock.ContextMenu>
                         <ContextMenu>
                             <StackPanel Orientation="Horizontal">
@@ -41,7 +46,12 @@
                     </TextBlock.ContextMenu>
                 </TextBlock>
                 <TextBlock  Grid.Row="2" Grid.Column="0">Total Current</TextBlock>
-                <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource OutputText}" Text="{Binding Path=TotalCurrRound}">
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Style="{StaticResource OutputText}"
+                    Text="{Binding Path=TotalCurrRound}"
+                >
                     <TextBlock.ContextMenu>
                         <ContextMenu>
                             <StackPanel Orientation="Horizontal">
@@ -60,8 +70,18 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <Button Grid.Row="0" Command="{Binding Path=NewResistorCmd}">New</Button>
-                        <Button Grid.Row="1" Command="{Binding Path=RemoveResistorCmd}">Remove</Button>
+                        <Button
+                            Grid.Row="0"
+                            Command="{Binding Path=NewResistorCmd}"
+                        >
+                            New
+                        </Button>
+                        <Button
+                            Grid.Row="1"
+                            Command="{Binding Path=RemoveResistorCmd}"
+                        >
+                            Remove
+                        </Button>
                         <ListView
                             x:Name="ResistorList"
                             Grid.Row="2"
@@ -82,11 +102,34 @@
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
 
-                                            <TextBlock Grid.ColumnSpan="3" HorizontalAlignment="Center" Text="{Binding Path=Number, StringFormat=R{0}}"/>
-                                            <TextBlock Grid.Row="1" Grid.Column="0">Resistance</TextBlock>
-                                            <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding Path=Value.Raw, UpdateSourceTrigger=PropertyChanged}"/>
-                                            <TextBlock Grid.Row="1" Grid.Column="1">Current</TextBlock>
-                                            <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource OutputText}" Text="{Binding Path=Current}"/>
+                                            <TextBlock
+                                                Grid.ColumnSpan="3"
+                                                HorizontalAlignment="Center"
+                                                Text="{Binding Path=Number, StringFormat=R{0}}"
+                                            />
+                                            <TextBlock
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                            >
+                                                Resistance
+                                            </TextBlock>
+                                            <TextBox
+                                                Grid.Row="2"
+                                                Grid.Column="0"
+                                                Text="{Binding Path=Value.Raw, UpdateSourceTrigger=PropertyChanged}"
+                                            />
+                                            <TextBlock
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                            >
+                                                Current
+                                            </TextBlock>
+                                            <TextBlock
+                                                Grid.Row="2"
+                                                Grid.Column="1"
+                                                Style="{StaticResource OutputText}"
+                                                Text="{Binding Path=Current}"
+                                            />
                                         </Grid>
                                     </Border>
                                 </DataTemplate>
