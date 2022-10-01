@@ -30,6 +30,7 @@
             <TabItem Header="Binary" x:Name="BinaryTab"/>
             <TabItem Header="BOM" x:Name="BOMTab"/>
             <TabItem Header="MOSFETs" x:Name="MOSFETTab"/>
+            <TabItem Header="Max Frequency" x:Name="MaxFreqTab"/>
         </TabControl>
     </Grid>
 </Window>

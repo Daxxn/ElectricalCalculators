@@ -2,6 +2,7 @@
 using ElectricalCalculators.Calculators.BomReader;
 using ElectricalCalculators.Calculators.CurrentDivider;
 using ElectricalCalculators.Calculators.LEDCurrent;
+using ElectricalCalculators.Calculators.MaxFreq;
 using ElectricalCalculators.Calculators.MilToMetric;
 using ElectricalCalculators.Calculators.MOSFETCalc;
 using ElectricalCalculators.Calculators.OhmsLaw;
@@ -44,6 +45,7 @@ namespace ElectricalCalculators
             BinaryTab.Content = new BinaryView();
             BOMTab.Content = new BomReaderView();
             MOSFETTab.Content = new MOSFETCalcView();
+            MaxFreqTab.Content = new MaxFreqView();
         }
 
         private void TypicalResistors_Click(object sender, RoutedEventArgs e)
