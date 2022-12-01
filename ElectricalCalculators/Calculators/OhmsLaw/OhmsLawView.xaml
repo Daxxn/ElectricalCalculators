@@ -4,28 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ElectricalCalculators.Calculators.OhmsLaw"
-             xmlns:models="clr-namespace:ElectricalCalculators.GlobalModels"
+             xmlns:models="clr-namespace:ElectricalCalculators.Models.Prefixes"
              xmlns:converters="clr-namespace:ElectricalCalculators.Utils.Converters"
              mc:Ignorable="d">
     <UserControl.Resources>
         <ObjectDataProvider
             x:Key="PrefixesData"
-            ObjectType="{x:Type models:Prefixes}"
+            ObjectType="{x:Type models:PrefixModel}"
             MethodName="GetAllPrefixes"
         />
         <converters:InputColorConverter x:Key="InputConverter"/>
     </UserControl.Resources>
     <Grid>
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Border Grid.Column="0">
+        <Border Grid.Row="0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -42,11 +38,19 @@
 
                 <TextBlock Grid.Row="0">Voltage</TextBlock>
                 <TextBox
+                    x:Name="VoltInput"
                     Grid.Row="0"
                     Grid.Column="1"
-                    Text="{Binding Path=Voltage, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding Path=Voltage}"
                     Background="{Binding Path=VoltageInput, Converter={StaticResource InputConverter}}"
-                />
+                    GotFocus="TextBox_GotFocus"
+                    TabIndex="1"
+                >
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding Path=CalculateCmd}"/>
+                        <KeyBinding Key="Escape" Command="{Binding Path=ClearCmd}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
                 <ComboBox
                     Grid.Row="0"
                     Grid.Column="2"
@@ -54,15 +58,24 @@
                     SelectedValue="{Binding Path=VoltagePrefix}"
                     SelectedValuePath="Key"
                     DisplayMemberPath="Value"
+                    TabIndex="5"
                 />
 
                 <TextBlock Grid.Row="1">Resistance</TextBlock>
                 <TextBox
+                    x:Name="ResInput"
                     Grid.Row="1"
                     Grid.Column="1"
-                    Text="{Binding Path=Resistance, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding Path=Resistance}"
                     Background="{Binding Path=ResistanceInput, Converter={StaticResource InputConverter}}"
-                />
+                    GotFocus="TextBox_GotFocus"
+                    TabIndex="2"
+                >
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding Path=CalculateCmd}"/>
+                        <KeyBinding Key="Escape" Command="{Binding Path=ClearCmd}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
                 <ComboBox
                     Grid.Row="1"
                     Grid.Column="2"
@@ -70,15 +83,24 @@
                     SelectedValue="{Binding Path=ResistancePrefix}"
                     SelectedValuePath="Key"
                     DisplayMemberPath="Value"
+                    TabIndex="6"
                 />
 
                 <TextBlock Grid.Row="2">Current</TextBlock>
                 <TextBox
+                    x:Name="CurrInput"
                     Grid.Row="2"
                     Grid.Column="1"
-                    Text="{Binding Path=Current, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding Path=Current}"
                     Background="{Binding Path=CurrentInput, Converter={StaticResource InputConverter}}"
-                />
+                    GotFocus="TextBox_GotFocus"
+                    TabIndex="3"
+                >
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding Path=CalculateCmd}"/>
+                        <KeyBinding Key="Escape" Command="{Binding Path=ClearCmd}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
                 <ComboBox
                     Grid.Row="2"
                     Grid.Column="2"
@@ -86,15 +108,24 @@
                     SelectedValue="{Binding Path=CurrentPrefix}"
                     SelectedValuePath="Key"
                     DisplayMemberPath="Value"
+                    TabIndex="7"
                 />
 
                 <TextBlock Grid.Row="3">Power</TextBlock>
                 <TextBox
+                    x:Name="PwrInput"
                     Grid.Row="3"
                     Grid.Column="1"
-                    Text="{Binding Path=Power, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding Path=Power}"
                     Background="{Binding Path=PowerInput, Converter={StaticResource InputConverter}}"
-                />
+                    GotFocus="TextBox_GotFocus"
+                    TabIndex="4"
+                >
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding Path=CalculateCmd}"/>
+                        <KeyBinding Key="Escape" Command="{Binding Path=ClearCmd}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
                 <ComboBox
                     Grid.Row="3"
                     Grid.Column="2"
@@ -102,6 +133,7 @@
                     SelectedValue="{Binding Path=PowerPrefix}"
                     SelectedValuePath="Key"
                     DisplayMemberPath="Value"
+                    TabIndex="8"
                 />
 
                 <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
@@ -109,18 +141,12 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Command="{Binding Path=ClearCmd}">Clear</Button>
-                    <Button Grid.Column="1" Command="{Binding Path=CalculateCmd}">Calc</Button>
+                    <Button Grid.Column="0" TabIndex="10" Command="{Binding Path=ClearCmd}">Clear</Button>
+                    <Button Grid.Column="1" TabIndex="9" Command="{Binding Path=CalculateCmd}">Calc</Button>
                 </Grid>
             </Grid>
         </Border>
 
-        <!--<Expander ExpandDirection="Left" Grid.Column="1">
-            <Image Grid.Column="1" Width="300" Source="/Resources/OhmsLawWheel.jpg"/>
-        </Expander>-->
-
-        <Expander ExpandDirection="Up" Grid.Row="1">
-            <Image Grid.Column="1" Width="300" Source="/Resources/OhmsLawWheel.jpg"/>
-        </Expander>
+        <Image Grid.Row="1" Width="300" Source="/Resources/OhmsLawWheel.jpg"/>
     </Grid>
 </UserControl>

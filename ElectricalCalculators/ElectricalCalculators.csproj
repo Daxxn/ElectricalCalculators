@@ -8,8 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\CurrentDivider.PNG" />
+    <None Remove="Resources\LEDCurrentLim.PNG" />
     <None Remove="Resources\MetricPrefixes.png" />
     <None Remove="Resources\OhmsLawWheel.jpg" />
+    <None Remove="Resources\SimpleMOSFET.PNG" />
+    <None Remove="Resources\VoltageDivider.PNG" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,8 +22,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\CurrentDivider.PNG" />
+    <Resource Include="Resources\LEDCurrentLim.PNG" />
     <Resource Include="Resources\MetricPrefixes.png" />
     <Resource Include="Resources\OhmsLawWheel.jpg" />
+    <Resource Include="Resources\SimpleMOSFET.PNG" />
+    <Resource Include="Resources\VoltageDivider.PNG" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="OptionViews\" />
   </ItemGroup>
 
 </Project>

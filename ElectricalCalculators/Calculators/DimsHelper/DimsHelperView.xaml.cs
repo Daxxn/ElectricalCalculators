@@ -13,26 +13,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ElectricalCalculators.Calculators.OhmsLaw
+namespace ElectricalCalculators.Calculators.DimsHelper
 {
    /// <summary>
-   /// Interaction logic for OhmsLawView.xaml
+   /// Interaction logic for DimsHelperView.xaml
    /// </summary>
-   public partial class OhmsLawView : UserControl
+   public partial class DimsHelperView : UserControl
    {
-      //public Dictionary<int, string> PrefixesDict = Prefixes.AllPrefixes
-      public OhmsLawViewModel VM { get; set; }
-      public OhmsLawView()
+      public DimsHelperViewModel VM { get; set; } = new();
+      public DimsHelperView()
       {
-         VM = new();
          DataContext = VM;
          InitializeComponent();
-         VM.ClearEvent += VM_ClearEvent;
-      }
-
-      private void VM_ClearEvent(object? sender, EventArgs e)
-      {
-         VoltInput.Focus();
       }
 
       private void TextBox_GotFocus(object sender, RoutedEventArgs e)

@@ -15,3 +15,7 @@ Multiple calculators for my electrical projects in one place. Working on making 
 
 - Buck/Boost Converters
 - PCB Trace Width
+- Inductance
+- Capacitance
+- Current Divider
+- 555 Timer

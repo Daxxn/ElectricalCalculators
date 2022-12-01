@@ -11,6 +11,11 @@ namespace ElectricalCalculators
     {
         #region Local Props
 
+        #region Commands
+        public Command OpenTypicalResistorsCmd { get; init; }
+        public Command OpenTypicalCapacitorsCmd { get; init; }
+        public Command OpenTypicalInductorsCmd { get; init; }
+        #endregion
         #endregion
 
         #region Constructors

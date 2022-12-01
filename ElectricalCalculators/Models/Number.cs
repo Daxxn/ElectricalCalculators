@@ -1,4 +1,5 @@
-﻿using ElectricalCalculators.Calculators.Prefixes.Models.Enums;
+﻿using ElectricalCalculators.Models.Prefixes;
+using ElectricalCalculators.Models.Prefixes.Enums;
 using MVVMLibrary;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElectricalCalculators.GlobalModels
+namespace ElectricalCalculators.Models
 {
     public class Number : Model
     {
@@ -15,20 +16,44 @@ namespace ElectricalCalculators.GlobalModels
         private int _exp = 0;
         private double _raw = 0;
         private string _prefix = "";
+        private string _shortPrefix = "";
         private int _prefixExp = 0;
         private double _prefixBase = 0;
+        private PrefixType _prefixType = PrefixType.All;
+        private Dictionary<int, string> _prefixes = new();
+        private Dictionary<int, string> _shortPrefixes = new();
         private int _round = 5;
         #endregion
 
         #region Constructors
-        public Number() { }
+        public Number(PrefixType type)
+        {
+            Prefixes = PrefixModel.GetPrefixes(type);
+            ShortPrefixes = PrefixModel.GetShortPrefixes(type);
+        }
         #endregion
 
         #region Methods
-        private void ParsePrefixes(PrefixOption option)
+        private void ParsePrefixes(PrefixOption option = PrefixOption.Lowest)
         {
-            (Prefix, PrefixExponent) = Prefixes.GetPrefix(Exponent, option);
+            (Prefix, PrefixExponent) = PrefixModel.GetPrefix(Exponent, option);
             PrefixBase = Raw * Math.Pow(10, -PrefixExponent);
+        }
+
+        public void ParseNumber(double input)
+        {
+            Raw = input;
+            ParseNumber();
+            ParsePrefixes();
+        }
+
+        public double CalcRaw()
+        {
+            Raw = Base * Math.Pow(10, PrefixExponent);
+            ParsePrefixes();
+            PrefixBase = Base;
+            Prefix = Prefixes[PrefixExponent];
+            return Raw;
         }
 
         /// <summary>
@@ -54,6 +79,7 @@ namespace ElectricalCalculators.GlobalModels
             Base = Raw * Math.Pow(10, -Exponent);
         }
 
+        #region Scientific Number Parsing
         /// <summary>
         /// Removes commas from the input number.
         /// </summary>
@@ -74,6 +100,9 @@ namespace ElectricalCalculators.GlobalModels
         /// <exception cref="ArgumentException">Thrown if the string is not parsable at all.</exception>
         public void Parse(string value, PrefixOption option)
         {
+            if (string.IsNullOrEmpty(value)) return;
+            if (string.IsNullOrWhiteSpace(value)) return;
+
             string input = CleanInput(value);
             if (input.Contains('e'))
             {
@@ -104,6 +133,44 @@ namespace ElectricalCalculators.GlobalModels
                 ParsePrefixes(option);
             }
         }
+        #endregion
+
+        #region Operators
+        public static Number operator +(Number x, Number y)
+        {
+            Number output = new(x.PrefixType);
+            output.ParseNumber(x.Raw + y.Raw);
+            return output;
+        }
+
+        public static Number operator -(Number x, Number y)
+        {
+            Number output = new(x.PrefixType);
+            output.ParseNumber(x.Raw - y.Raw);
+            return output;
+        }
+
+        public static Number operator /(Number x, Number y)
+        {
+            Number output = new(x.PrefixType);
+            output.ParseNumber(x.Raw / y.Raw);
+            return output;
+        }
+
+        public static Number operator *(Number x, Number y)
+        {
+            Number output = new(x.PrefixType);
+            output.ParseNumber(x.Raw * y.Raw);
+            return output;
+        }
+
+        public static Number operator ^(Number x, Number e)
+        {
+            Number output = new(x.PrefixType);
+            output.ParseNumber(Math.Pow(x.Raw, e.Raw));
+            return output;
+        }
+        #endregion
         #endregion
 
         #region Full Props
@@ -139,6 +206,7 @@ namespace ElectricalCalculators.GlobalModels
             set
             {
                 _raw = value;
+                ParseNumber();
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(RawRound));
             }
@@ -155,6 +223,16 @@ namespace ElectricalCalculators.GlobalModels
             set
             {
                 _prefix = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string ShortPrefix
+        {
+            get => _shortPrefix;
+            set
+            {
+                _shortPrefix = value;
                 OnPropertyChanged();
             }
         }
@@ -191,6 +269,36 @@ namespace ElectricalCalculators.GlobalModels
             set
             {
                 _round = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Dictionary<int, string> Prefixes
+        {
+            get => _prefixes;
+            set
+            {
+                _prefixes = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Dictionary<int, string> ShortPrefixes
+        {
+            get => _shortPrefixes;
+            set
+            {
+                _shortPrefixes = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public PrefixType PrefixType
+        {
+            get => _prefixType;
+            set
+            {
+                _prefixType = value;
                 OnPropertyChanged();
             }
         }

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ElectricalCalculators.Calculators.Prefixes"
-             xmlns:enums="clr-namespace:ElectricalCalculators.Calculators.Prefixes.Models.Enums"
+             xmlns:enums="clr-namespace:ElectricalCalculators.Models.Prefixes.Enums"
              xmlns:utils="clr-namespace:ElectricalCalculators.Utils"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -63,6 +63,7 @@
                     >
                         <TextBox.InputBindings>
                             <KeyBinding Command="{Binding Path=CalcCmd}" Key="Return"/>
+                            <KeyBinding Command="{Binding Path=CalcCmd}" Key=""/>
                         </TextBox.InputBindings>
                     </TextBox>
                     <Button Grid.Column="2" Command="{Binding Path=CalcCmd}">Calc</Button>

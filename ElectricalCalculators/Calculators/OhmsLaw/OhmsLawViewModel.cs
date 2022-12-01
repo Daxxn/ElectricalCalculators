@@ -4,193 +4,213 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ElectricalCalculators.Calculators.OhmsLaw.Models;
-using ElectricalCalculators.GlobalModels;
+using ElectricalCalculators.Models;
 using System.Windows;
+using ElectricalCalculators.Models.Prefixes;
+using ElectricalCalculators.Models.OhmsLaw;
 
 namespace ElectricalCalculators.Calculators.OhmsLaw
 {
-    public class OhmsLawViewModel : ViewModel
-    {
-        #region Local Props
-        //public Dictionary<int, string> PrefixesDict = ElectricalCalculators.Models.Prefixes.AllPrefixes;
-        private double? _resistance = 0;
-        private double? _voltage = 0;
-        private double? _current = 0;
-        private double? _power = 0;
+   public class OhmsLawViewModel : ViewModel
+   {
+      #region Local Props
+      public event EventHandler ClearEvent = (s,e) => { };
+      //public Dictionary<int, string> PrefixesDict = ElectricalCalculators.Models.Prefixes.AllPrefixes;
+      private double? _resistance = 0;
+      private double? _voltage = 0;
+      private double? _current = 0;
+      private double? _power = 0;
 
-        private int _voltagePrefix = 0;
-        private int _resistancePrefix = 0;
-        private int _currentPrefix = 0;
-        private int _powerPrefix = 0;
+      private int _voltagePrefix = 0;
+      private int _resistancePrefix = 0;
+      private int _currentPrefix = 0;
+      private int _powerPrefix = 0;
 
-        private bool _voltageInput = true;
-        private bool _resistanceInput = true;
-        private bool _currentInput = true;
-        private bool _powerInput = true;
+      private bool? _voltageInput = null;
+      private bool? _resistanceInput = null;
+      private bool? _currentInput = null;
+      private bool? _powerInput = null;
 
-        #region Commands
-        public Command CalculateCmd { get; init; }
-        #endregion
-        #endregion
+      #region Commands
+      public Command CalculateCmd { get; init; }
+      public Command ClearCmd { get; init; }
+      #endregion
+      #endregion
 
-        #region Constructors
-        public OhmsLawViewModel()
-        {
-            CalculateCmd = new(Calculate);
-        }
-        #endregion
+      #region Constructors
+      public OhmsLawViewModel()
+      {
+         CalculateCmd = new(Calculate);
+         ClearCmd = new(Clear);
+      }
+      #endregion
 
-        #region Methods
-        private void Calculate()
-        {
-            try
-            {
+      #region Methods
+      private void Calculate()
+      {
+         try
+         {
+            var GetValue = PrefixModel.Getvalue;
+            VoltageInput = Voltage != 0 && Voltage is not null;
+            ResistanceInput = Resistance != 0 && Resistance is not null;
+            CurrentInput = Current != 0 && Current is not null;
+            PowerInput = Power != 0 && Power is not null;
 
-                var GetValue = GlobalModels.Prefixes.Getvalue;
-                VoltageInput = Voltage != 0 && Voltage is not null;
-                ResistanceInput = Resistance != 0 && Resistance is not null;
-                CurrentInput = Current != 0 && Current is not null;
-                PowerInput = Power != 0 && Power is not null;
+            (Voltage, Resistance, Current, Power) = OhmsLawCalculator.Calculate(
+                GetValue(Voltage, VoltagePrefix),
+                GetValue(Resistance, ResistancePrefix),
+                GetValue(Current, CurrentPrefix),
+                GetValue(Power, PowerPrefix)
+            );
+         }
+         catch (ArgumentException)
+         {
+            MessageBox.Show("Not enough data to calculate..");
+         }
+         catch (Exception)
+         {
+            throw;
+         }
+      }
 
-                (Voltage, Resistance, Current, Power) = OhmsLawCalculator.Calculate(
-                    GetValue(Voltage, VoltagePrefix),
-                    GetValue(Resistance, ResistancePrefix),
-                    GetValue(Current, CurrentPrefix),
-                    GetValue(Power, PowerPrefix)
-                );
-            }
-            catch (ArgumentException)
-            {
-                MessageBox.Show("Not enough data to calculate..");
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-        #endregion
+      private void Clear()
+      {
+         Voltage = 0;
+         VoltagePrefix = 0;
+         VoltageInput = null;
+         Resistance = 0;
+         ResistancePrefix = 0;
+         ResistanceInput = null;
+         Current = 0;
+         CurrentPrefix = 0;
+         CurrentInput = null;
+         Power = 0;
+         PowerPrefix = 0;
+         PowerInput = null;
+         ClearEvent?.Invoke(this, new());
+      }
+      #endregion
 
-        #region Full Props
-        public double? Voltage
-        {
-            get => _voltage;
-            set
-            {
-                _voltage = value;
-                OnPropertyChanged();
-            }
-        }
+      #region Full Props
+      public double? Voltage
+      {
+         get => _voltage;
+         set
+         {
+            _voltage = value;
+            OnPropertyChanged();
+         }
+      }
 
-        public double? Resistance
-        {
-            get => _resistance;
-            set
-            {
-                _resistance = value;
-                OnPropertyChanged();
-            }
-        }
+      public double? Resistance
+      {
+         get => _resistance;
+         set
+         {
+            _resistance = value;
+            OnPropertyChanged();
+         }
+      }
 
-        public double? Current
-        {
-            get => _current;
-            set
-            {
-                _current = value;
-                OnPropertyChanged();
-            }
-        }
+      public double? Current
+      {
+         get => _current;
+         set
+         {
+            _current = value;
+            OnPropertyChanged();
+         }
+      }
 
-        public double? Power
-        {
-            get => _power;
-            set
-            {
-                _power = value;
-                OnPropertyChanged();
-            }
-        }
+      public double? Power
+      {
+         get => _power;
+         set
+         {
+            _power = value;
+            OnPropertyChanged();
+         }
+      }
 
-        public int VoltagePrefix
-        {
-            get => _voltagePrefix;
-            set
-            {
-                _voltagePrefix = value;
-                OnPropertyChanged();
-            }
-        }
+      public int VoltagePrefix
+      {
+         get => _voltagePrefix;
+         set
+         {
+            _voltagePrefix = value;
+            OnPropertyChanged();
+         }
+      }
 
-        public int ResistancePrefix
-        {
-            get => _resistancePrefix;
-            set
-            {
-                _resistancePrefix = value;
-                OnPropertyChanged();
-            }
-        }
+      public int ResistancePrefix
+      {
+         get => _resistancePrefix;
+         set
+         {
+            _resistancePrefix = value;
+            OnPropertyChanged();
+         }
+      }
 
-        public int CurrentPrefix
-        {
-            get => _currentPrefix;
-            set
-            {
-                _currentPrefix = value;
-                OnPropertyChanged();
-            }
-        }
+      public int CurrentPrefix
+      {
+         get => _currentPrefix;
+         set
+         {
+            _currentPrefix = value;
+            OnPropertyChanged();
+         }
+      }
 
-        public int PowerPrefix
-        {
-            get => _powerPrefix;
-            set
-            {
-                _powerPrefix = value;
-                OnPropertyChanged();
-            }
-        }
+      public int PowerPrefix
+      {
+         get => _powerPrefix;
+         set
+         {
+            _powerPrefix = value;
+            OnPropertyChanged();
+         }
+      }
 
-        public bool VoltageInput
-        {
-            get => _voltageInput;
-            set
-            {
-                _voltageInput = value;
-                OnPropertyChanged();
-            }
-        }
+      public bool? VoltageInput
+      {
+         get => _voltageInput;
+         set
+         {
+            _voltageInput = value;
+            OnPropertyChanged();
+         }
+      }
 
-        public bool ResistanceInput
-        {
-            get => _resistanceInput;
-            set
-            {
-                _resistanceInput = value;
-                OnPropertyChanged();
-            }
-        }
+      public bool? ResistanceInput
+      {
+         get => _resistanceInput;
+         set
+         {
+            _resistanceInput = value;
+            OnPropertyChanged();
+         }
+      }
 
-        public bool CurrentInput
-        {
-            get => _currentInput;
-            set
-            {
-                _currentInput = value;
-                OnPropertyChanged();
-            }
-        }
+      public bool? CurrentInput
+      {
+         get => _currentInput;
+         set
+         {
+            _currentInput = value;
+            OnPropertyChanged();
+         }
+      }
 
-        public bool PowerInput
-        {
-            get => _powerInput;
-            set
-            {
-                _powerInput = value;
-                OnPropertyChanged();
-            }
-        }
-        #endregion
-    }
+      public bool? PowerInput
+      {
+         get => _powerInput;
+         set
+         {
+            _powerInput = value;
+            OnPropertyChanged();
+         }
+      }
+      #endregion
+   }
 }
