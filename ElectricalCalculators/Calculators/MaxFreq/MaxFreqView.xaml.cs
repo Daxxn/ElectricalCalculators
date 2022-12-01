@@ -27,5 +27,10 @@ namespace ElectricalCalculators.Calculators.MaxFreq
          DataContext = VM;
          InitializeComponent();
       }
+
+      private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+      {
+         if (sender is TextBox tb) tb.SelectAll();
+      }
    }
 }

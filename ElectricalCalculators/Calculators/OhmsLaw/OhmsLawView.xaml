@@ -38,11 +38,19 @@
 
                 <TextBlock Grid.Row="0">Voltage</TextBlock>
                 <TextBox
+                    x:Name="VoltInput"
                     Grid.Row="0"
                     Grid.Column="1"
-                    Text="{Binding Path=Voltage, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding Path=Voltage}"
                     Background="{Binding Path=VoltageInput, Converter={StaticResource InputConverter}}"
-                />
+                    GotFocus="TextBox_GotFocus"
+                    TabIndex="1"
+                >
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding Path=CalculateCmd}"/>
+                        <KeyBinding Key="Escape" Command="{Binding Path=ClearCmd}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
                 <ComboBox
                     Grid.Row="0"
                     Grid.Column="2"
@@ -50,15 +58,24 @@
                     SelectedValue="{Binding Path=VoltagePrefix}"
                     SelectedValuePath="Key"
                     DisplayMemberPath="Value"
+                    TabIndex="5"
                 />
 
                 <TextBlock Grid.Row="1">Resistance</TextBlock>
                 <TextBox
+                    x:Name="ResInput"
                     Grid.Row="1"
                     Grid.Column="1"
-                    Text="{Binding Path=Resistance, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding Path=Resistance}"
                     Background="{Binding Path=ResistanceInput, Converter={StaticResource InputConverter}}"
-                />
+                    GotFocus="TextBox_GotFocus"
+                    TabIndex="2"
+                >
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding Path=CalculateCmd}"/>
+                        <KeyBinding Key="Escape" Command="{Binding Path=ClearCmd}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
                 <ComboBox
                     Grid.Row="1"
                     Grid.Column="2"
@@ -66,15 +83,24 @@
                     SelectedValue="{Binding Path=ResistancePrefix}"
                     SelectedValuePath="Key"
                     DisplayMemberPath="Value"
+                    TabIndex="6"
                 />
 
                 <TextBlock Grid.Row="2">Current</TextBlock>
                 <TextBox
+                    x:Name="CurrInput"
                     Grid.Row="2"
                     Grid.Column="1"
-                    Text="{Binding Path=Current, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding Path=Current}"
                     Background="{Binding Path=CurrentInput, Converter={StaticResource InputConverter}}"
-                />
+                    GotFocus="TextBox_GotFocus"
+                    TabIndex="3"
+                >
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding Path=CalculateCmd}"/>
+                        <KeyBinding Key="Escape" Command="{Binding Path=ClearCmd}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
                 <ComboBox
                     Grid.Row="2"
                     Grid.Column="2"
@@ -82,15 +108,24 @@
                     SelectedValue="{Binding Path=CurrentPrefix}"
                     SelectedValuePath="Key"
                     DisplayMemberPath="Value"
+                    TabIndex="7"
                 />
 
                 <TextBlock Grid.Row="3">Power</TextBlock>
                 <TextBox
+                    x:Name="PwrInput"
                     Grid.Row="3"
                     Grid.Column="1"
-                    Text="{Binding Path=Power, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding Path=Power}"
                     Background="{Binding Path=PowerInput, Converter={StaticResource InputConverter}}"
-                />
+                    GotFocus="TextBox_GotFocus"
+                    TabIndex="4"
+                >
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding Path=CalculateCmd}"/>
+                        <KeyBinding Key="Escape" Command="{Binding Path=ClearCmd}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
                 <ComboBox
                     Grid.Row="3"
                     Grid.Column="2"
@@ -98,6 +133,7 @@
                     SelectedValue="{Binding Path=PowerPrefix}"
                     SelectedValuePath="Key"
                     DisplayMemberPath="Value"
+                    TabIndex="8"
                 />
 
                 <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
@@ -105,8 +141,8 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0" Command="{Binding Path=ClearCmd}">Clear</Button>
-                    <Button Grid.Column="1" Command="{Binding Path=CalculateCmd}">Calc</Button>
+                    <Button Grid.Column="0" TabIndex="10" Command="{Binding Path=ClearCmd}">Clear</Button>
+                    <Button Grid.Column="1" TabIndex="9" Command="{Binding Path=CalculateCmd}">Calc</Button>
                 </Grid>
             </Grid>
         </Border>

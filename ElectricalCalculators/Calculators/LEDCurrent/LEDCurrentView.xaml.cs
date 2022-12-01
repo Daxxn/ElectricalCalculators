@@ -31,6 +31,11 @@ namespace ElectricalCalculators.Calculators.LEDCurrent
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             VM.UpdateCalc(sender, e);
-        }
-    }
+      }
+
+      private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+      {
+         if (sender is TextBox tb) tb.SelectAll();
+      }
+   }
 }

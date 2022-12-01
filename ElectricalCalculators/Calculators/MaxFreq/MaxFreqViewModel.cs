@@ -1,4 +1,5 @@
-﻿using MVVMLibrary;
+﻿using ElectricalCalculators.Calculators.Models.MaxFreq;
+using MVVMLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;

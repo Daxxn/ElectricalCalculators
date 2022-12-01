@@ -17,33 +17,38 @@ using System.Windows.Shapes;
 
 namespace ElectricalCalculators.Calculators.MOSFETCalc
 {
-    /// <summary>
-    /// Interaction logic for MOSFETCalcView.xaml
-    /// </summary>
-    public partial class MOSFETCalcView : UserControl
-    {
-        private MOSFETCalcViewModel VM { get; init; }
-        public MOSFETCalcView()
-        {
-            VM = new();
-            DataContext = VM;
+   /// <summary>
+   /// Interaction logic for MOSFETCalcView.xaml
+   /// </summary>
+   public partial class MOSFETCalcView : UserControl
+   {
+      private MOSFETCalcViewModel VM { get; init; }
+      public MOSFETCalcView()
+      {
+         VM = new();
+         DataContext = VM;
 
-            InitializeComponent();
-        }
+         InitializeComponent();
+      }
 
-        /// <summary>
-        /// !!NOT USED!!
-        /// Could work but the Number class would need to extensively modified. Maybe later.
-        /// </summary>
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (sender is TextBox tb)
+      /// <summary>
+      /// !!NOT USED!!
+      /// Could work but the Number class would need to extensively modified. Maybe later.
+      /// </summary>
+      private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+      {
+         if (sender is TextBox tb)
+         {
+            if (tb.DataContext is Number num)
             {
-                if (tb.DataContext is Number num)
-                {
-                    num.Parse(tb.Text, PrefixOption.Lowest);
-                }
+               num.Parse(tb.Text, PrefixOption.Lowest);
             }
-        }
-    }
+         }
+      }
+
+      private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+      {
+         if (sender is TextBox tb) tb.SelectAll();
+      }
+   }
 }

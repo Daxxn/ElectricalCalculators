@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ElectricalCalculators"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        ResizeMode="CanResizeWithGrip"
+        Title="EE Tools" Height="600" Width="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -31,6 +32,7 @@
             <TabItem Header="BOM" x:Name="BOMTab"/>
             <TabItem Header="MOSFETs" x:Name="MOSFETTab"/>
             <TabItem Header="Max Frequency" x:Name="MaxFreqTab"/>
+            <TabItem Header="Dimensions" Name="DimsHelperTab"/>
         </TabControl>
     </Grid>
 </Window>

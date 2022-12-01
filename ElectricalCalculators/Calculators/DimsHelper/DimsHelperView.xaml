@@ -1,0 +1,316 @@
+﻿<UserControl x:Class="ElectricalCalculators.Calculators.DimsHelper.DimsHelperView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ElectricalCalculators.Calculators.DimsHelper"
+             xmlns:conv="clr-namespace:ElectricalCalculators.Utils.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <conv:VisibilityConverter x:Key="VisibilityConverter"/>
+        <conv:DecimalRoundConverter x:Key="DecimalRoundConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TabControl Background="#282E3F">
+            <TabItem Header="Passives Style">
+                <Canvas>
+                    <!--#region Footprint Shapes -->
+                    <Canvas
+                        Canvas.Left="10" Canvas.Top="75"
+                        Panel.ZIndex="5"
+                    >
+                        <Rectangle
+                            Width="350" Height="200"
+                            Canvas.Left="50" Canvas.Top="0"
+                            Stroke="#5134D4" StrokeThickness="2"
+                        />
+                        <Rectangle
+                            Width="100" Height="50"
+                            Canvas.Left="0" Canvas.Top="75"
+                            Fill="#DA3939"
+                        />
+                        <Rectangle
+                            Width="100" Height="50"
+                            Canvas.Left="350" Canvas.Top="75"
+                            Fill="#DA3939"
+                        />
+                    </Canvas>
+                    <!--#endregion-->
+
+                    <!--#region Package Shapes -->
+                    <Canvas
+                        Canvas.Left="10" Canvas.Top="75"
+                        Visibility="{Binding Path=ShowPackage, Converter={StaticResource VisibilityConverter}}"
+                        Panel.ZIndex="10"
+                    >
+                        <Rectangle
+                            Width="348" Height="198"
+                            Canvas.Left="51" Canvas.Top="0"
+                            Fill="#222222"
+                            RadiusX="10" RadiusY="10"
+                        />
+                        <Rectangle
+                            Width="31" Height="30"
+                            Canvas.Left="20" Canvas.Top="85"
+                            Fill="Silver"
+                        />
+                        <Rectangle
+                            Width="30" Height="30"
+                            Canvas.Left="399" Canvas.Top="85"
+                            Fill="Silver"
+                        />
+                        <Rectangle
+                            Width="20" Height="190"
+                            Canvas.Left="100" Canvas.Top="4"
+                            Fill="White"
+                        />
+                    </Canvas>
+                    <!--#endregion-->
+
+                    <!--#region Dimensions-->
+                    <Canvas x:Name="InnerDimC" Canvas.Left="111" Canvas.Top="210">
+                        <Polyline Stroke="White" StrokeThickness="2.5">
+                            <Polyline.Points>
+                                <Point X="5" Y="5"/>
+                                <Point X="0" Y="0"/>
+                                <Point X="0" Y="80"/>
+                                <Point X="248" Y="80"/>
+                                <Point X="248" Y="0"/>
+                                <Point X="245" Y="5"/>
+                            </Polyline.Points>
+                        </Polyline>
+                        <TextBox
+                            Canvas.Left="105" Canvas.Top="82"
+                            Style="{StaticResource DimsText}"
+                            Text="{Binding Path=InnerWidth}"
+                            TabIndex="1"
+                            GotFocus="TextBox_GotFocus"
+                        />
+                    </Canvas>
+                    <Canvas x:Name="OuterDimC" Canvas.Left="4" Canvas.Top="210">
+                        <Polyline Stroke="White" StrokeThickness="2.5">
+                            <Polyline.Points>
+                                <Point X="0" Y="5"/>
+                                <Point X="5" Y="0"/>
+                                <Point X="5" Y="120"/>
+                                <Point X="457" Y="120"/>
+                                <Point X="457" Y="0"/>
+                                <Point X="462" Y="5"/>
+                            </Polyline.Points>
+                        </Polyline>
+                        <TextBox
+                            Canvas.Left="212" Canvas.Top="122"
+                            Style="{StaticResource DimsText}"
+                            Text="{Binding Path=OuterWidth}"
+                            TabIndex="2"
+                            GotFocus="TextBox_GotFocus"
+                        />
+                    </Canvas>
+                    <Canvas x:Name="CenterDimC" Canvas.Left="53" Canvas.Top="26">
+                        <Polyline Stroke="White" StrokeThickness="2.5">
+                            <Polyline.Points>
+                                <Point X="0" Y="95"/>
+                                <Point X="5" Y="100"/>
+                                <Point X="5" Y="22"/>
+                                <Point X="359" Y="22"/>
+                                <Point X="359" Y="100"/>
+                                <Point X="364" Y="95"/>
+                            </Polyline.Points>
+                        </Polyline>
+                        <TextBlock
+                            Canvas.Left="163" Canvas.Top="0"
+                            Text="{Binding Path=CenterWidth, Converter={StaticResource DecimalRoundConverter}}"
+                            ToolTip="Footprint Center to Center dimension"
+                            Style="{StaticResource DimsResultText}"
+                        />
+                        <TextBlock
+                            Canvas.Left="163" Canvas.Top="26"
+                            Style="{StaticResource DimsResultText}"
+                            Text="{Binding Path=HalfCenterWidth, Converter={StaticResource DecimalRoundConverter}}"
+                            ToolTip="Footprint half Center dimension"
+                        />
+                        <TextBlock
+                            Canvas.Left="216" Canvas.Top="26"
+                            Style="{StaticResource DimsResultText}"
+                            MinWidth="20"
+                            MaxWidth="20"
+                        >
+                            2 /
+                        </TextBlock>
+                    </Canvas>
+                    
+                    <Canvas x:Name="PadADimC" Canvas.Left="10" Canvas.Top="18">
+                        <Polyline Stroke="White" StrokeThickness="2.5">
+                            <Polyline.Points>
+                                <Point X="6" Y="115"/>
+                                <Point X="1" Y="120"/>
+                                <Point X="1" Y="20"/>
+                                <Point X="99" Y="20"/>
+                                <Point X="99" Y="120"/>
+                                <Point X="94" Y="115"/>
+                            </Polyline.Points>
+                        </Polyline>
+                        <TextBlock
+                            Canvas.Left="25" Canvas.Top="0"
+                            Style="{StaticResource DimsResultText}"
+                            Text="{Binding Path=PadWidth, Converter={StaticResource DecimalRoundConverter}}"
+                            ToolTip="Pad A Width"
+                        />
+                    </Canvas>
+                    <Canvas x:Name="PadBDimC" Canvas.Left="360" Canvas.Top="18">
+                        <Polyline Stroke="White" StrokeThickness="2.5">
+                            <Polyline.Points>
+                                <Point X="6" Y="115"/>
+                                <Point X="1" Y="120"/>
+                                <Point X="1" Y="20"/>
+                                <Point X="99" Y="20"/>
+                                <Point X="99" Y="120"/>
+                                <Point X="94" Y="115"/>
+                            </Polyline.Points>
+                        </Polyline>
+                        <TextBlock
+                            Canvas.Left="25" Canvas.Top="0"
+                            Style="{StaticResource DimsResultText}"
+                            Text="{Binding Path=PadWidth, Converter={StaticResource DecimalRoundConverter}}"
+                            ToolTip="Pad B Width"
+                        />
+                    </Canvas>
+
+                    <Canvas x:Name="CenterPointC" Canvas.Left="240" Canvas.Top="175">
+                        <Line Stroke="White" StrokeThickness="3" X1="-10" Y1="0" X2="10" Y2="0"/>
+                        <Line Stroke="White" StrokeThickness="3" X1="0" Y1="-10" X2="0" Y2="10"/>
+                    </Canvas>
+
+                    <Button
+                        Canvas.Left="215" Canvas.Top="210"
+                        Panel.ZIndex="100"
+                        Width="50" FontSize="10"
+                        Command="{Binding Path=ShowPackageCmd}"
+                    >
+                        <TextBlock Text="{Binding Path=ShowPackageText}"/>
+                    </Button>
+                    <!--#endregion-->
+                </Canvas>
+            </TabItem>
+            <TabItem Header="QFN Style">
+
+            </TabItem>
+        </TabControl>
+
+        <Expander Grid.Row="1" Header="All Dims" IsExpanded="True">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" BorderBrush="#aaaaaa" BorderThickness="1" Padding="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock
+                            Grid.Row="0" Grid.ColumnSpan="4"
+                            FontSize="16" HorizontalAlignment="Center"
+                        >
+                            Width
+                        </TextBlock>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0">Inner</TextBlock>
+                        <TextBox
+                            Grid.Row="1" Grid.Column="1"
+                            Text="{Binding Path=InnerWidth}"
+                            TabIndex="3"
+                            GotFocus="TextBox_GotFocus"
+                        />
+                        <TextBlock Grid.Row="1" Grid.Column="2">Outer</TextBlock>
+                        <TextBox
+                            Grid.Row="1" Grid.Column="3"
+                            Text="{Binding Path=OuterWidth}"
+                            TabIndex="4"
+                            GotFocus="TextBox_GotFocus"
+                        />
+                    </Grid>
+                </Border>
+
+                <Border Grid.Column="1" BorderBrush="#aaaaaa" BorderThickness="1" Padding="2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock
+                            Grid.Row="0" Grid.ColumnSpan="4"
+                            FontSize="16" HorizontalAlignment="Center"
+                        >
+                            Results
+                        </TextBlock>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0">Pad-Pad</TextBlock>
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Text="{Binding
+                                Path=CenterWidth,
+                                Converter={StaticResource DecimalRoundConverter},
+                                ConverterParameter=6
+                            }"
+                        />
+                        <TextBlock Grid.Row="1" Grid.Column="2">Pad-Center</TextBlock>
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="3"
+                            Text="{Binding
+                                Path=HalfCenterWidth,
+                                Converter={StaticResource DecimalRoundConverter},
+                                ConverterParameter=6
+                            }"
+                        />
+                        <TextBlock Grid.Row="2" Grid.Column="0">Pad Width</TextBlock>
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="4"
+                            Text="{Binding
+                                Path=PadWidth,
+                                Converter={StaticResource DecimalRoundConverter},
+                                ConverterParameter=6
+                            }"
+                        />
+                    </Grid>
+                </Border>
+            </Grid>
+        </Expander>
+    </Grid>
+</UserControl>

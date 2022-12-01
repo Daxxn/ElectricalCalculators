@@ -38,6 +38,7 @@ namespace ElectricalCalculators.Calculators.LEDCurrent
         private void Calculate()
         {
             Resistor = LEDCurrentCalculator.Calc(VCC, ForwardVoltage, ForwardCurrent);
+         Power = LEDCurrentCalculator.CalcPower(VCC, ForwardCurrent);
         }
 
         public void UpdateCalc(object sender, EventArgs e)

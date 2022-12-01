@@ -63,6 +63,7 @@
                     >
                         <TextBox.InputBindings>
                             <KeyBinding Command="{Binding Path=CalcCmd}" Key="Return"/>
+                            <KeyBinding Command="{Binding Path=CalcCmd}" Key=""/>
                         </TextBox.InputBindings>
                     </TextBox>
                     <Button Grid.Column="2" Command="{Binding Path=CalcCmd}">Calc</Button>

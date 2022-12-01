@@ -59,7 +59,11 @@
                         <TextBlock Style="{StaticResource SmallTitleText}">MOSFET Specs</TextBlock>
 
                         <TextBlock Grid.Column="0" Grid.Row="1">VCC</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=MOSFET.VCC.Base}"/>
+                        <TextBox
+                            Grid.Column="1" Grid.Row="1"
+                            Text="{Binding Path=MOSFET.VCC.Base}"
+                            GotFocus="TextBox_GotFocus"
+                        />
                         <ComboBox
                             Grid.Column="2"
                             Grid.Row="1"
@@ -71,7 +75,11 @@
                         <TextBlock Grid.Column="3" Grid.Row="1">V</TextBlock>
 
                         <TextBlock Grid.Column="0" Grid.Row="2">Load Current</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=MOSFET.LoadCurrent.Base}"/>
+                        <TextBox
+                            Grid.Column="1" Grid.Row="2"
+                            Text="{Binding Path=MOSFET.LoadCurrent.Base}"
+                            GotFocus="TextBox_GotFocus"
+                        />
                         <ComboBox
                             Grid.Column="2"
                             Grid.Row="2"
@@ -87,7 +95,11 @@
                             <Run FontSize="10" BaselineAlignment="Subscript" Text="DS"/>
                             <Run Text="- ON"/>
                         </TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Path=MOSFET.RDSON.Base}"/>
+                        <TextBox
+                            Grid.Column="1" Grid.Row="3"
+                            Text="{Binding Path=MOSFET.RDSON.Base}"
+                            GotFocus="TextBox_GotFocus"
+                        />
                         <ComboBox
                             Grid.Column="2"
                             Grid.Row="3"
@@ -99,7 +111,11 @@
                         <TextBlock Grid.Column="3" Grid.Row="3">mΩ</TextBlock>
 
                         <TextBlock Grid.Column="0" Grid.Row="4">C/W</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="4" Text="{Binding Path=MOSFET.TempPerWatt.Base}"/>
+                        <TextBox
+                            Grid.Column="1" Grid.Row="4"
+                            Text="{Binding Path=MOSFET.TempPerWatt.Base}"
+                            GotFocus="TextBox_GotFocus"
+                        />
                         <ComboBox
                             Grid.Column="2"
                             Grid.Row="4"
@@ -114,7 +130,11 @@
                             <Run Text="Q"/>
                             <Run Text="T" BaselineAlignment="Subscript" FontSize="10"/>
                         </TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="5" Text="{Binding Path=MOSFET.QT.Base}"/>
+                        <TextBox
+                            Grid.Column="1" Grid.Row="5"
+                            Text="{Binding Path=MOSFET.QT.Base}"
+                            GotFocus="TextBox_GotFocus"
+                        />
                         <ComboBox
                             Grid.Column="2"
                             Grid.Row="5"
@@ -126,7 +146,11 @@
                         <TextBlock Grid.Column="3" Grid.Row="5">mC</TextBlock>
 
                         <TextBlock Grid.Column="0" Grid.Row="6">Gate Resistor</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="6" Text="{Binding Path=MOSFET.GateResistance.Base}"/>
+                        <TextBox
+                            Grid.Column="1" Grid.Row="6"
+                            Text="{Binding Path=MOSFET.GateResistance.Base}"
+                            GotFocus="TextBox_GotFocus"
+                        />
                         <ComboBox
                             Grid.Column="2"
                             Grid.Row="6"
@@ -138,7 +162,11 @@
                         <TextBlock Grid.Column="3" Grid.Row="6">Ω</TextBlock>
 
                         <TextBlock Grid.Column="0" Grid.Row="7">Driver Current</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="7" Text="{Binding Path=MOSFET.DriveCurrent.Base}"/>
+                        <TextBox
+                            Grid.Column="1" Grid.Row="7"
+                            Text="{Binding Path=MOSFET.DriveCurrent.Base}"
+                            GotFocus="TextBox_GotFocus"
+                        />
                         <ComboBox
                             Grid.Column="2"
                             Grid.Row="7"
@@ -152,7 +180,11 @@
                         <TextBlock Grid.Row="8" Style="{StaticResource SmallTitleText}">MOSFET Behaviour</TextBlock>
 
                         <TextBlock Grid.Column="0" Grid.Row="9">Power Dissipation</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="9" Text="{Binding Path=MOSFET.PowerDiss.PrefixBase}"/>
+                        <TextBox
+                            Grid.Column="1" Grid.Row="9"
+                            Text="{Binding Path=MOSFET.PowerDiss.PrefixBase}"
+                            GotFocus="TextBox_GotFocus"
+                        />
                         <ComboBox
                             Grid.Column="2"
                             Grid.Row="9"
@@ -164,7 +196,11 @@
                         <TextBlock Grid.Column="3" Grid.Row="9">℃/W</TextBlock>
 
                         <TextBlock Grid.Column="0" Grid.Row="10">Temperature Delta</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="10" Text="{Binding Path=MOSFET.TempDelta.PrefixBase}"/>
+                        <TextBox
+                            Grid.Column="1" Grid.Row="10"
+                            Text="{Binding Path=MOSFET.TempDelta.PrefixBase}"
+                            GotFocus="TextBox_GotFocus"
+                        />
                         <ComboBox
                             Grid.Column="2"
                             Grid.Row="10"
@@ -176,7 +212,11 @@
                         <TextBlock Grid.Column="3" Grid.Row="10">℃</TextBlock>
 
                         <TextBlock Grid.Column="0" Grid.Row="11">Switching Time</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="11" Text="{Binding Path=MOSFET.SwitchingTime.PrefixBase}"/>
+                        <TextBox
+                            Grid.Column="1" Grid.Row="11"
+                            Text="{Binding Path=MOSFET.SwitchingTime.PrefixBase}"
+                            GotFocus="TextBox_GotFocus"
+                        />
                         <ComboBox
                             Grid.Column="2"
                             Grid.Row="11"
@@ -188,7 +228,11 @@
                         <TextBlock Grid.Column="3" Grid.Row="11">Sec</TextBlock>
 
                         <TextBlock Grid.Column="0" Grid.Row="12">Gate Current</TextBlock>
-                        <TextBox Grid.Column="1" Grid.Row="12" Text="{Binding Path=MOSFET.GateCurrent.PrefixBase}"/>
+                        <TextBox
+                            Grid.Column="1" Grid.Row="12"
+                            Text="{Binding Path=MOSFET.GateCurrent.PrefixBase}"
+                            GotFocus="TextBox_GotFocus"
+                        />
                         <ComboBox
                             Grid.Column="2"
                             Grid.Row="12"

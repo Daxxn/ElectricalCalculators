@@ -9,30 +9,37 @@ using System.Threading.Tasks;
 
 namespace ElectricalCalculators.Models.LEDCurrent
 {
-    public static class LEDCurrentCalculator
-    {
-        #region Local Props
+   public static class LEDCurrentCalculator
+   {
+      #region Local Props
 
-        #endregion
+      #endregion
 
-        #region Methods
-        public static Number Calc(Number vcc, Number fVolt, Number fCurr)
-        {
-            var num = new Number(PrefixType.Resisitor);
-            num.ParseNumber((vcc.Raw - fVolt.Raw) / fCurr.Raw);
-            return num;
-        }
+      #region Methods
+      public static Number Calc(Number vcc, Number fVolt, Number fCurr)
+      {
+         var num = new Number(PrefixType.Resisitor);
+         num.ParseNumber((vcc.Raw - fVolt.Raw) / fCurr.Raw);
+         return num;
+      }
 
-        public static Number Calc(double vcc, double fVolt, double fCurr)
-        {
-            var num = new Number(PrefixType.Resisitor);
-            num.ParseNumber((vcc - fVolt) / (fCurr * 0.001));
-            return num;
-        }
-        #endregion
+      public static Number Calc(double vcc, double fVolt, double fCurr)
+      {
+         var num = new Number(PrefixType.Resisitor);
+         num.ParseNumber((vcc - fVolt) / (fCurr * 0.001));
+         return num;
+      }
 
-        #region Full Props
+      public static Number CalcPower(double vcc, double fCurr)
+      {
+         var num = new Number(PrefixType.All);
+         num.ParseNumber(vcc * fCurr);
+         return num;
+      }
+      #endregion
 
-        #endregion
-    }
+      #region Full Props
+
+      #endregion
+   }
 }

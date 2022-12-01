@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ElectricalCalculators.Calculators.MaxFreq
+namespace ElectricalCalculators.Calculators.Models.MaxFreq
 {
    public static class IBISParser
    {

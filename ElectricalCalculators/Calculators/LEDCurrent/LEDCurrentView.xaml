@@ -39,7 +39,8 @@
                     Grid.Column="1"
                     MinWidth="100"
                     TextChanged="TextBox_TextChanged"
-                    Text="{Binding Path=VCC, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding Path=VCC, UpdateSourceTrigger=LostFocus}"
+                    GotFocus="TextBox_GotFocus"
                 />
 
                 <TextBlock Grid.Row="1" Grid.Column="0">D1 Forward Voltage</TextBlock>
@@ -48,7 +49,8 @@
                     Grid.Column="1"
                     MinWidth="100"
                     TextChanged="TextBox_TextChanged"
-                    Text="{Binding Path=ForwardVoltage, UpdateSourceTrigger=PropertyChanged}"
+                    Text="{Binding Path=ForwardVoltage, UpdateSourceTrigger=LostFocus}"
+                    GotFocus="TextBox_GotFocus"
                 />
 
                 <TextBlock
@@ -63,7 +65,12 @@
                     MinWidth="100"
                     TextChanged="TextBox_TextChanged"
                     Text="{Binding Path=ForwardCurrent, UpdateSourceTrigger=PropertyChanged}"
-                />
+                    GotFocus="TextBox_GotFocus"
+                >
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding Path=CalculateCmd}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
 
                 <Grid Grid.Row="3" Grid.ColumnSpan="3">
                     <Grid.ColumnDefinitions>
@@ -98,7 +105,7 @@
                         Grid.Column="2"
                         MinWidth="100"
                         Margin="0,0,10,0"
-                        Text="{Binding Path=Resistor.Prefix}"
+                        Text="{Binding Path=Resistor.ShortPrefix}"
                     />
 
                     <TextBlock Grid.Row="2" Grid.Column="0">Power Demand</TextBlock>
@@ -112,7 +119,7 @@
                         Grid.Row="2"
                         Grid.Column="2"
                         MinWidth="100"
-                        Text="{Binding Path=Power.Prefix}"
+                        Text="{Binding Path=Power.ShortPrefix}"
                     />
                 </Grid>
             </Grid>
