@@ -23,19 +23,26 @@ namespace ElectricalCalculators.Models.LEDCurrent
          return num;
       }
 
-      public static Number Calc(double vcc, double fVolt, double fCurr)
+      //public static Number Calc(double vcc, double fVolt, double fCurr)
+      //{
+      //   var num = new Number(PrefixType.Resisitor);
+      //   num.ParseNumber((vcc - fVolt) / (fCurr * 0.001));
+      //   return num;
+      //}
+
+      public static double Calc(double vcc, double fVolt, double fCurr)
       {
-         var num = new Number(PrefixType.Resisitor);
-         num.ParseNumber((vcc - fVolt) / (fCurr * 0.001));
-         return num;
+         return (vcc - fVolt) / (fCurr * 0.001);
       }
 
-      public static Number CalcPower(double vcc, double fCurr)
-      {
-         var num = new Number(PrefixType.All);
-         num.ParseNumber(vcc * fCurr);
-         return num;
-      }
+      //public static Number CalcPower(double vcc, double fCurr)
+      //{
+      //   var num = new Number(PrefixType.All);
+      //   num.ParseNumber(vcc * fCurr);
+      //   return num;
+      //}
+
+      public static double CalcPower(double vcc, double fCurr) => vcc * fCurr;
       #endregion
 
       #region Full Props

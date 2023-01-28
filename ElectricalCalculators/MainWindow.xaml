@@ -34,6 +34,7 @@
       <TabItem Header="Max Frequency" x:Name="MaxFreqTab"/>
       <TabItem Header="Dimensions" Name="DimsHelperTab"/>
       <TabItem Header="Radial" x:Name="RadialTab"/>
+      <TabItem Header="Annular Ring" Name="AnnularTab"/>
     </TabControl>
   </Grid>
 </Window>

@@ -1,0 +1,151 @@
+﻿<UserControl x:Class="ElectricalCalculators.Calculators.Vias.ViasView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ElectricalCalculators.Calculators.Vias"
+             xmlns:vias="clr-namespace:ElectricalCalculators.Models.Vias"
+             xmlns:utils="clr-namespace:ElectricalCalculators.Utils"
+             xmlns:valid="clr-namespace:ElectricalCalculators.Utils.Validators"
+             xmlns:conv="clr-namespace:ElectricalCalculators.Utils.Converters"
+             mc:Ignorable="d">
+  <UserControl.Resources>
+    <valid:DecimalValidationRule x:Key="DecimalValidationRule"/>
+    <conv:DecimalConverter x:Key="DecimalConverter"/>
+    <conv:DecimalRoundConverter x:Key="DecimalRoundConverter"/>
+  </UserControl.Resources>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <Grid Grid.Column="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+
+      <TextBlock Grid.Row="0" Grid.ColumnSpan="2">Calculate</TextBlock>
+      <ComboBox
+        Grid.Row="1" Grid.ColumnSpan="2"
+        ItemsSource="{Binding Source={utils:EnumBindingSource {x:Type vias:SizeType}}}"
+        SelectedItem="{Binding Path=SizeTypeSelection}"
+      />
+
+      <TextBlock Grid.Row="2" Grid.Column="0">
+        AnnularRing
+      </TextBlock>
+      <TextBox Grid.Row="2" Grid.Column="1">
+        <TextBox.Text>
+          <Binding Path="AnnularRing" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource DecimalConverter}">
+            <Binding.ValidationRules>
+              <valid:DecimalValidationRule ValidationStep="RawProposedValue"/>
+            </Binding.ValidationRules>
+          </Binding>
+        </TextBox.Text>
+      </TextBox>
+
+      <TextBlock Grid.Row="3" Grid.Column="0">
+        Drill
+      </TextBlock>
+      <TextBox Grid.Row="3" Grid.Column="1">
+        <TextBox.Text>
+          <Binding Path="Drill" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource DecimalConverter}">
+            <Binding.ValidationRules>
+              <valid:DecimalValidationRule ValidationStep="RawProposedValue"/>
+            </Binding.ValidationRules>
+          </Binding>
+        </TextBox.Text>
+      </TextBox>
+
+      <TextBlock Grid.Row="4" Grid.Column="0">
+        Pad
+      </TextBlock>
+      <TextBox Grid.Row="4" Grid.Column="1">
+        <TextBox.Text>
+          <Binding Path="Pad" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource DecimalConverter}">
+            <Binding.ValidationRules>
+              <valid:DecimalValidationRule ValidationStep="RawProposedValue"/>
+            </Binding.ValidationRules>
+          </Binding>
+        </TextBox.Text>
+      </TextBox>
+
+      <TextBlock Grid.Row="5" Grid.Column="0">
+        Iterator
+      </TextBlock>
+      <TextBox Grid.Row="5" Grid.Column="1">
+        <TextBox.Text>
+          <Binding Path="Iterator" UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource DecimalConverter}">
+            <Binding.ValidationRules>
+              <valid:DecimalValidationRule ValidationStep="RawProposedValue"/>
+            </Binding.ValidationRules>
+          </Binding>
+        </TextBox.Text>
+      </TextBox>
+
+      <TextBlock Grid.Row="6" Grid.ColumnSpan="2">Iterate</TextBlock>
+      <ComboBox
+        Grid.Row="7" Grid.ColumnSpan="2"
+        ItemsSource="{Binding Source={utils:EnumBindingSource {x:Type vias:SizeType}}}"
+        SelectedItem="{Binding Path=IterateType}"
+      />
+
+      <Button Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2" Command="{Binding Path=CalcCmd}">Calc</Button>
+    </Grid>
+
+    <Grid Grid.Column="1">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+      <Grid Grid.Row="0">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0">Count</TextBlock>
+        <TextBox Grid.Column="1" Text="{Binding Path=ViaList.Count, UpdateSourceTrigger=PropertyChanged}"/>
+      </Grid>
+      <DataGrid Grid.Row="1" ItemsSource="{Binding Path=ViaList.Vias}" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+        <DataGrid.CellStyle>
+          <Style TargetType="DataGridCell">
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+          </Style>
+        </DataGrid.CellStyle>
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="Ar" Width="*" Binding="{Binding Path=AnnularRing, Converter={StaticResource DecimalRoundConverter}}">
+          </DataGridTextColumn>
+          <DataGridTextColumn Header="Dr" Width="*" Binding="{Binding Path=DrillSize, Converter={StaticResource DecimalRoundConverter}}">
+            <DataGridTextColumn.CellStyle>
+              <Style TargetType="DataGridCell">
+                <Setter Property="Background" Value="Transparent"/>
+                <Style.Triggers>
+                  <DataTrigger Binding="{Binding Path=DrillOk}" Value="False">
+                    <Setter Property="Background" Value="Red"/>
+                    <Setter Property="Foreground" Value="White"/>
+                  </DataTrigger>
+                </Style.Triggers>
+              </Style>
+            </DataGridTextColumn.CellStyle>
+          </DataGridTextColumn>
+          <DataGridTextColumn Header="Pa" Width="*" Binding="{Binding Path=PadSize, Converter={StaticResource DecimalRoundConverter}}"/>
+        </DataGrid.Columns>
+      </DataGrid>
+    </Grid>
+  </Grid>
+</UserControl>

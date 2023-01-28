@@ -5,126 +5,115 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ElectricalCalculators.Calculators.LEDCurrent"
              xmlns:models="clr-namespace:ElectricalCalculators.Models.Prefixes"
+             xmlns:conv="clr-namespace:ElectricalCalculators.Utils.Converters"
              mc:Ignorable="d">
-    <UserControl.Resources>
-        <ObjectDataProvider
-            x:Key="PrefixesData"
-            ObjectType="{x:Type models:PrefixModel}"
-            MethodName="GetAllPrefixes"
-        />
-    </UserControl.Resources>
-    <Grid>
+  <UserControl.Resources>
+    <ObjectDataProvider
+      x:Key="PrefixesData"
+      ObjectType="{x:Type models:PrefixModel}"
+      MethodName="GetAllPrefixes"
+    />
+    <conv:DecimalConverter x:Key="DecimalConverter"/>
+    <conv:ResistanceConverter x:Key="ResistanceConverter"/>
+  </UserControl.Resources>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <Border>
+      <Grid>
         <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0">VCC</TextBlock>
+        <TextBox
+          Grid.Row="0"
+          Grid.Column="1"
+          MinWidth="100"
+          TextChanged="TextBox_TextChanged"
+          Text="{Binding Path=VCC, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DecimalConverter}}"
+          GotFocus="TextBox_GotFocus"
+        />
+
+        <TextBlock Grid.Row="1" Grid.Column="0">D1 Forward Voltage</TextBlock>
+        <TextBox
+          Grid.Row="1"
+          Grid.Column="1"
+          MinWidth="100"
+          TextChanged="TextBox_TextChanged"
+          Text="{Binding Path=ForwardVoltage, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DecimalConverter}}"
+          GotFocus="TextBox_GotFocus"
+        />
+
+        <TextBlock
+          Grid.Row="2"
+          Grid.Column="0"
+        >
+          D1 Forward Current (mA)
+        </TextBlock>
+        <TextBox
+          Grid.Row="2"
+          Grid.Column="1"
+          MinWidth="100"
+          TextChanged="TextBox_TextChanged"
+          Text="{Binding Path=ForwardCurrent, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DecimalConverter}}"
+          GotFocus="TextBox_GotFocus"
+        >
+          <TextBox.InputBindings>
+            <KeyBinding Key="Return" Command="{Binding Path=CalculateCmd}"/>
+          </TextBox.InputBindings>
+        </TextBox>
+
+        <Grid Grid.Row="3" Grid.ColumnSpan="3">
+          <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+          </Grid.ColumnDefinitions>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
 
-        <Border>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+          <TextBlock
+            Grid.Row="0"
+            Grid.ColumnSpan="3"
+            HorizontalAlignment="Center"
+          >
+            Results
+          </TextBlock>
 
-                <TextBlock Grid.Row="0" Grid.Column="0">VCC</TextBlock>
-                <TextBox
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    MinWidth="100"
-                    TextChanged="TextBox_TextChanged"
-                    Text="{Binding Path=VCC, UpdateSourceTrigger=LostFocus}"
-                    GotFocus="TextBox_GotFocus"
-                />
+          <TextBlock Grid.Row="1" Grid.Column="0">R1 Resistance</TextBlock>
+          <TextBlock
+            Grid.Row="1"
+            Grid.Column="1"
+            MinWidth="100"
+            Margin="0,0,10,0"
+            Text="{Binding Path=Resistor, Converter={StaticResource ResistanceConverter}}"
+          />
 
-                <TextBlock Grid.Row="1" Grid.Column="0">D1 Forward Voltage</TextBlock>
-                <TextBox
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    MinWidth="100"
-                    TextChanged="TextBox_TextChanged"
-                    Text="{Binding Path=ForwardVoltage, UpdateSourceTrigger=LostFocus}"
-                    GotFocus="TextBox_GotFocus"
-                />
+          <TextBlock Grid.Row="2" Grid.Column="0">Power Demand</TextBlock>
+          <TextBlock
+            Grid.Row="2"
+            Grid.Column="1"
+            MinWidth="100"
+            Text="{Binding Path=Power, Converter={StaticResource ResistanceConverter}}"
+          />
+        </Grid>
+      </Grid>
+    </Border>
 
-                <TextBlock
-                    Grid.Row="2"
-                    Grid.Column="0"
-                >
-                    D1 Forward Current (mA)
-                </TextBlock>
-                <TextBox
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    MinWidth="100"
-                    TextChanged="TextBox_TextChanged"
-                    Text="{Binding Path=ForwardCurrent, UpdateSourceTrigger=PropertyChanged}"
-                    GotFocus="TextBox_GotFocus"
-                >
-                    <TextBox.InputBindings>
-                        <KeyBinding Key="Return" Command="{Binding Path=CalculateCmd}"/>
-                    </TextBox.InputBindings>
-                </TextBox>
-
-                <Grid Grid.Row="3" Grid.ColumnSpan="3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-
-                    <TextBlock
-                        Grid.Row="0"
-                        Grid.ColumnSpan="3"
-                        HorizontalAlignment="Center"
-                    >
-                        Results
-                    </TextBlock>
-
-                    <TextBlock Grid.Row="1" Grid.Column="0">R1 Resistance</TextBlock>
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        MinWidth="100"
-                        Margin="0,0,10,0"
-                        Text="{Binding Path=Resistor.Base}"
-                    />
-                    <TextBlock
-                        Grid.Row="1"
-                        Grid.Column="2"
-                        MinWidth="100"
-                        Margin="0,0,10,0"
-                        Text="{Binding Path=Resistor.ShortPrefix}"
-                    />
-
-                    <TextBlock Grid.Row="2" Grid.Column="0">Power Demand</TextBlock>
-                    <TextBlock
-                        Grid.Row="2"
-                        Grid.Column="1"
-                        MinWidth="100"
-                        Text="{Binding Path=Power.Base}"
-                    />
-                    <TextBlock
-                        Grid.Row="2"
-                        Grid.Column="2"
-                        MinWidth="100"
-                        Text="{Binding Path=Power.ShortPrefix}"
-                    />
-                </Grid>
-            </Grid>
-        </Border>
-
-        <Image Grid.Column="1" Source="/Resources/LEDCurrentLim.PNG"/>
-    </Grid>
+    <Image Grid.Column="1" Source="/Resources/LEDCurrentLim.PNG"/>
+  </Grid>
 </UserControl>
