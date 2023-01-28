@@ -8,6 +8,7 @@ using ElectricalCalculators.Calculators.MilToMetric;
 using ElectricalCalculators.Calculators.MOSFETCalc;
 using ElectricalCalculators.Calculators.OhmsLaw;
 using ElectricalCalculators.Calculators.Prefixes;
+using ElectricalCalculators.Calculators.Radial;
 using ElectricalCalculators.Calculators.VoltageDivider;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,7 @@ namespace ElectricalCalculators
          VM = new MainViewModel();
          DataContext = VM;
          InitializeComponent();
+
          MetricPrefixTab.Content = new PrefixesView();
          OhmsLawTab.Content = new OhmsLawView();
          LEDCurrentTab.Content = new LEDCurrentView();
@@ -48,6 +50,7 @@ namespace ElectricalCalculators
          MOSFETTab.Content = new MOSFETCalcView();
          MaxFreqTab.Content = new MaxFreqView();
          DimsHelperTab.Content = new DimsHelperView();
+         RadialTab.Content = new RadialView();
       }
 
       private void TypicalResistors_Click(object sender, RoutedEventArgs e)

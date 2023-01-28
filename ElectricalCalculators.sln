@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectricalCalculators", "ElectricalCalculators\ElectricalCalculators.csproj", "{DDAFBC01-76B1-415E-B2E9-9DEE3083EA71}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonReaderLibrary", "..\..\Libraries\JsonReaderLibrary\JsonReaderLibrary\JsonReaderLibrary.csproj", "{5A4A0F5B-9382-4C7D-9884-376598ABAB1D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVVMLibrary", "..\..\Libraries\MVVMLibrary\MVVMLibrary\MVVMLibrary.csproj", "{D9F854EA-49D7-40A3-B517-6570F305CAD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ElectricalCalculators", "ElectricalCalculators\ElectricalCalculators.csproj", "{DDAFBC01-76B1-415E-B2E9-9DEE3083EA71}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9B9D82DF-F862-410C-861F-D73562600AB3}"
 	ProjectSection(SolutionItems) = preProject
@@ -31,22 +27,6 @@ Global
 		{DDAFBC01-76B1-415E-B2E9-9DEE3083EA71}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DDAFBC01-76B1-415E-B2E9-9DEE3083EA71}.Release1|Any CPU.ActiveCfg = Release|Any CPU
 		{DDAFBC01-76B1-415E-B2E9-9DEE3083EA71}.Release1|Any CPU.Build.0 = Release|Any CPU
-		{5A4A0F5B-9382-4C7D-9884-376598ABAB1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A4A0F5B-9382-4C7D-9884-376598ABAB1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A4A0F5B-9382-4C7D-9884-376598ABAB1D}.Release_1|Any CPU.ActiveCfg = Release|Any CPU
-		{5A4A0F5B-9382-4C7D-9884-376598ABAB1D}.Release_1|Any CPU.Build.0 = Release|Any CPU
-		{5A4A0F5B-9382-4C7D-9884-376598ABAB1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A4A0F5B-9382-4C7D-9884-376598ABAB1D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5A4A0F5B-9382-4C7D-9884-376598ABAB1D}.Release1|Any CPU.ActiveCfg = Release1|Any CPU
-		{5A4A0F5B-9382-4C7D-9884-376598ABAB1D}.Release1|Any CPU.Build.0 = Release1|Any CPU
-		{D9F854EA-49D7-40A3-B517-6570F305CAD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D9F854EA-49D7-40A3-B517-6570F305CAD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D9F854EA-49D7-40A3-B517-6570F305CAD4}.Release_1|Any CPU.ActiveCfg = Release_1|Any CPU
-		{D9F854EA-49D7-40A3-B517-6570F305CAD4}.Release_1|Any CPU.Build.0 = Release_1|Any CPU
-		{D9F854EA-49D7-40A3-B517-6570F305CAD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D9F854EA-49D7-40A3-B517-6570F305CAD4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D9F854EA-49D7-40A3-B517-6570F305CAD4}.Release1|Any CPU.ActiveCfg = Release|Any CPU
-		{D9F854EA-49D7-40A3-B517-6570F305CAD4}.Release1|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

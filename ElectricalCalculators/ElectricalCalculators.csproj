@@ -17,11 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Libraries\JsonReaderLibrary\JsonReaderLibrary\JsonReaderLibrary.csproj" />
-    <ProjectReference Include="..\..\..\Libraries\MVVMLibrary\MVVMLibrary\MVVMLibrary.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Resource Include="Resources\CurrentDivider.PNG" />
     <Resource Include="Resources\LEDCurrentLim.PNG" />
     <Resource Include="Resources\MetricPrefixes.png" />
@@ -36,6 +31,11 @@
 
   <ItemGroup>
     <Folder Include="OptionViews\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JsonReaderLibrary" Version="1.0.0" />
+    <PackageReference Include="MVVMLibrary" Version="1.0.1" />
   </ItemGroup>
 
 </Project>

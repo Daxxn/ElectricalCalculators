@@ -7,32 +7,33 @@
         mc:Ignorable="d"
         ResizeMode="CanResizeWithGrip"
         Title="EE Tools" Height="600" Width="600">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
 
-        <Menu Grid.Row="0">
-            <MenuItem Header="Options">
-                <MenuItem Header="Typical Resistor Values" Click="TypicalResistors_Click"/>
-                <MenuItem Header="Typical Resistor Values" Click="TypicalCapacitors_Click"/>
-                <MenuItem Header="Typical Resistor Values" Click="TypicalInductors_Click"/>
-            </MenuItem>
-        </Menu>
+    <Menu Grid.Row="0">
+      <MenuItem Header="Options">
+        <MenuItem Header="Typical Resistor Values" Click="TypicalResistors_Click"/>
+        <MenuItem Header="Typical Resistor Values" Click="TypicalCapacitors_Click"/>
+        <MenuItem Header="Typical Resistor Values" Click="TypicalInductors_Click"/>
+      </MenuItem>
+    </Menu>
 
-        <TabControl Grid.Row="1">
-            <TabItem Header="Ohms Law" x:Name="OhmsLawTab"/>
-            <TabItem Header="Metric Prefixes" x:Name="MetricPrefixTab"/>
-            <TabItem Header="Mil To Metric" x:Name="MilToMetricTab"/>
-            <TabItem Header="LED Current" x:Name="LEDCurrentTab"/>
-            <TabItem Header="Voltage Divider" x:Name="VoltageDividerTab"/>
-            <TabItem Header="Current Divider" x:Name="CurrentDividerTab"/>
-            <TabItem Header="Binary" x:Name="BinaryTab"/>
-            <TabItem Header="BOM" x:Name="BOMTab"/>
-            <TabItem Header="MOSFETs" x:Name="MOSFETTab"/>
-            <TabItem Header="Max Frequency" x:Name="MaxFreqTab"/>
-            <TabItem Header="Dimensions" Name="DimsHelperTab"/>
-        </TabControl>
-    </Grid>
+    <TabControl Grid.Row="1">
+      <TabItem Header="Ohms Law" x:Name="OhmsLawTab"/>
+      <TabItem Header="Metric Prefixes" x:Name="MetricPrefixTab"/>
+      <TabItem Header="Mil To Metric" x:Name="MilToMetricTab"/>
+      <TabItem Header="LED Current" x:Name="LEDCurrentTab"/>
+      <TabItem Header="Voltage Divider" x:Name="VoltageDividerTab"/>
+      <TabItem Header="Current Divider" x:Name="CurrentDividerTab"/>
+      <TabItem Header="Binary" x:Name="BinaryTab"/>
+      <TabItem Header="BOM" x:Name="BOMTab"/>
+      <TabItem Header="MOSFETs" x:Name="MOSFETTab"/>
+      <TabItem Header="Max Frequency" x:Name="MaxFreqTab"/>
+      <TabItem Header="Dimensions" Name="DimsHelperTab"/>
+      <TabItem Header="Radial" x:Name="RadialTab"/>
+    </TabControl>
+  </Grid>
 </Window>
