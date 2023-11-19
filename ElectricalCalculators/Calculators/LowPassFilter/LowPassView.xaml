@@ -28,8 +28,28 @@
     <TextBox FontFamily="Fira Code Retina" FontSize="14" Grid.Row="0" Grid.Column="1" Text="{Binding Path=Res, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"/>
     <TextBlock Grid.Row="1">Capacitor</TextBlock>
     <TextBox FontFamily="Fira Code Retina" FontSize="14" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Cap, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"/>
-    <TextBlock Grid.Row="2">Rise Time</TextBlock>
-    <TextBox FontFamily="Fira Code Retina" FontSize="14" Grid.Row="2" Grid.Column="1" Text="{Binding Path=Rise, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"/>
+    <Grid Grid.Row="2" Grid.ColumnSpan="2">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <TextBlock>Rise Time</TextBlock>
+      <TextBox
+        FontFamily="Fira Code Retina"
+        FontSize="14"
+        Grid.Column="1"
+        Text="{Binding Path=Rise, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"
+      />
+      <TextBlock Grid.Column="2">Frequency</TextBlock>
+      <TextBox
+        FontFamily="Fira Code Retina"
+        FontSize="14"
+        Grid.Column="3"
+        Text="{Binding Path=Freq, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"
+      />
+    </Grid>
 
     <Separator Grid.Row="3" Grid.ColumnSpan="2" Margin="0,20"/>
     

@@ -102,6 +102,17 @@ namespace ElectricalCalculators.Calculators.LowPassFilter
          {
             _rise = value;
             OnPropertyChanged();
+            OnPropertyChanged(nameof(Freq));
+         }
+      }
+
+      public double? Freq
+      {
+         get => 1 / Rise;
+         set
+         {
+            _rise = 1 / value;
+            OnPropertyChanged(nameof(Rise));
          }
       }
       #endregion
