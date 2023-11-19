@@ -17,15 +17,12 @@ public class LEDCurrentViewModel : ViewModel
 {
    #region Local Props
 
-   private double _vcc = 0;
-   private double _forwardVoltage = 0;
-   private double _forwardCurrent = 0;
+   private double? _vcc = null;
+   private double? _forwardVoltage = null;
+   private double? _forwardCurrent = null;
 
-   //private Number _resistor = new(PrefixType.Resisitor);
-   //private Number _power = new(PrefixType.All);
-
-   private double _resistor = 0;
-   private double _power = 0;
+   private double? _resistor = null;
+   private double? _power = null;
 
    #region Commands
    public Command CalculateCmd { get; init; }
@@ -42,7 +39,7 @@ public class LEDCurrentViewModel : ViewModel
    #region Methods
    private void Calculate()
    {
-      if (VCC == 0 || ForwardVoltage == 0 || ForwardCurrent == 0)
+      if (VCC is null || ForwardVoltage is null || ForwardCurrent is null)
          return;
       Resistor = LEDCurrentCalculator.Calc(VCC, ForwardVoltage, ForwardCurrent);
       Power = LEDCurrentCalculator.CalcPower(VCC, ForwardCurrent);
@@ -60,7 +57,7 @@ public class LEDCurrentViewModel : ViewModel
    #endregion
 
    #region Full Props
-   public double VCC
+   public double? VCC
    {
       get => _vcc;
       set
@@ -70,7 +67,7 @@ public class LEDCurrentViewModel : ViewModel
       }
    }
 
-   public double ForwardCurrent
+   public double? ForwardCurrent
    {
       get => _forwardCurrent;
       set
@@ -80,7 +77,7 @@ public class LEDCurrentViewModel : ViewModel
       }
    }
 
-   public double ForwardVoltage
+   public double? ForwardVoltage
    {
       get => _forwardVoltage;
       set
@@ -90,7 +87,7 @@ public class LEDCurrentViewModel : ViewModel
       }
    }
 
-   public double Resistor
+   public double? Resistor
    {
       get => _resistor;
       set
@@ -100,7 +97,7 @@ public class LEDCurrentViewModel : ViewModel
       }
    }
 
-   public double Power
+   public double? Power
    {
       get => _power;
       set
@@ -109,25 +106,5 @@ public class LEDCurrentViewModel : ViewModel
          OnPropertyChanged();
       }
    }
-
-   //public Number Resistor
-   //{
-   //   get => _resistor;
-   //   set
-   //   {
-   //      _resistor = value;
-   //      OnPropertyChanged();
-   //   }
-   //}
-
-   //public Number Power
-   //{
-   //   get => _power;
-   //   set
-   //   {
-   //      _power = value;
-   //      OnPropertyChanged();
-   //   }
-   //}
    #endregion
 }

@@ -12,10 +12,10 @@ namespace ElectricalCalculators.Models
     public class Resistor : Model
     {
         #region Local Props
-        private NumberDisplay _value = new(PrefixType.Resisitor);
+        private double? _value = null;
         private string? _name = null;
         private int _number = 0;
-        private double _current = 0;
+        private double? _current = null;
         #endregion
 
         #region Constructors
@@ -29,7 +29,7 @@ namespace ElectricalCalculators.Models
         #region Methods
         public void Clear()
         {
-            Value = new(PrefixType.Resisitor);
+            Value = null;
         }
         #endregion
 
@@ -44,7 +44,7 @@ namespace ElectricalCalculators.Models
             }
         }
 
-        public NumberDisplay Value
+        public double? Value
         {
             get => _value;
             set
@@ -64,7 +64,7 @@ namespace ElectricalCalculators.Models
             }
         }
 
-        public double Current
+        public double? Current
         {
             get => _current;
             set

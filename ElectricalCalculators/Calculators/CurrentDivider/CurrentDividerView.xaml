@@ -5,155 +5,159 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ElectricalCalculators.Calculators.CurrentDivider"
              xmlns:components="clr-namespace:ElectricalCalculators.Utils.Components"
+             xmlns:conv="clr-namespace:ElectricalCalculators.Utils.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+  <UserControl.Resources>
+    <conv:SuffixConverter x:Key="SuffixConverter"/>
+  </UserControl.Resources>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <Border Grid.Column="0">
+      <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock  Grid.Row="0" Grid.Column="0">VCC</TextBlock>
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=VCC, Converter={StaticResource SuffixConverter}}"/>
+        <TextBlock  Grid.Row="1" Grid.Column="0">Total Resistance</TextBlock>
+        <TextBlock
+          Grid.Row="1"
+          Grid.Column="1"
+          Style="{StaticResource OutputText}"
+          Text="{Binding Path=TotalResRound, Converter={StaticResource SuffixConverter}}"
+        >
+          <TextBlock.ContextMenu>
+            <ContextMenu>
+              <StackPanel Orientation="Horizontal">
+                <TextBlock>Round Decimal</TextBlock>
+                <TextBox Text="{Binding Path=Round}"/>
+              </StackPanel>
+            </ContextMenu>
+          </TextBlock.ContextMenu>
+        </TextBlock>
+        <TextBlock  Grid.Row="2" Grid.Column="0">Total Current</TextBlock>
+        <TextBlock
+          Grid.Row="2"
+          Grid.Column="1"
+          Style="{StaticResource OutputText}"
+          Text="{Binding Path=TotalCurrRound, Converter={StaticResource SuffixConverter}}"
+        >
+          <TextBlock.ContextMenu>
+            <ContextMenu>
+              <StackPanel Orientation="Horizontal">
+                <TextBlock>Round Decimal</TextBlock>
+                <TextBox Text="{Binding Path=Round}"/>
+              </StackPanel>
+            </ContextMenu>
+          </TextBlock.ContextMenu>
+        </TextBlock>
 
-        <Border Grid.Column="0">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <TextBlock  Grid.Row="0" Grid.Column="0">VCC</TextBlock>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=VCC}"/>
-                <TextBlock  Grid.Row="1" Grid.Column="0">Total Resistance</TextBlock>
-                <TextBlock
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Style="{StaticResource OutputText}"
-                    Text="{Binding Path=TotalResRound}"
-                >
-                    <TextBlock.ContextMenu>
-                        <ContextMenu>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock>Round Decimal</TextBlock>
-                                <TextBox Text="{Binding Path=Round}"/>
-                            </StackPanel>
-                        </ContextMenu>
-                    </TextBlock.ContextMenu>
-                </TextBlock>
-                <TextBlock  Grid.Row="2" Grid.Column="0">Total Current</TextBlock>
-                <TextBlock
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Style="{StaticResource OutputText}"
-                    Text="{Binding Path=TotalCurrRound}"
-                >
-                    <TextBlock.ContextMenu>
-                        <ContextMenu>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock>Round Decimal</TextBlock>
-                                <TextBox Text="{Binding Path=Round}"/>
-                            </StackPanel>
-                        </ContextMenu>
-                    </TextBlock.ContextMenu>
-                </TextBlock>
+        <Border Grid.ColumnSpan="2" Grid.Row="3">
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-                <Border Grid.ColumnSpan="2" Grid.Row="3">
+            <Button
+              Grid.Row="0"
+              Command="{Binding Path=NewResistorCmd}"
+            >
+              New
+            </Button>
+            <Button
+              Grid.Row="1"
+              Command="{Binding Path=RemoveResistorCmd}"
+            >
+              Remove
+            </Button>
+            <ListView
+              x:Name="ResistorList"
+              Grid.Row="2"
+              ItemsSource="{Binding Path=ResistorCollection}"
+              SelectedItem="{Binding Path=SelectedResistor}"
+            >
+              <ListView.ItemTemplate>
+                <DataTemplate>
+                  <Border BorderBrush="AliceBlue" BorderThickness="2" Margin="2" Padding="2">
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                      <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                      </Grid.ColumnDefinitions>
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                      </Grid.RowDefinitions>
 
-                        <Button
-                            Grid.Row="0"
-                            Command="{Binding Path=NewResistorCmd}"
-                        >
-                            New
-                        </Button>
-                        <Button
-                            Grid.Row="1"
-                            Command="{Binding Path=RemoveResistorCmd}"
-                        >
-                            Remove
-                        </Button>
-                        <ListView
-                            x:Name="ResistorList"
-                            Grid.Row="2"
-                            ItemsSource="{Binding Path=ResistorCollection}"
-                            SelectedItem="{Binding Path=SelectedResistor}"
-                        >
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Border BorderBrush="AliceBlue" BorderThickness="2" Margin="2" Padding="2">
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="Auto"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-
-                                            <TextBlock
-                                                Grid.ColumnSpan="3"
-                                                HorizontalAlignment="Center"
-                                                Text="{Binding Path=Number, StringFormat=R{0}}"
-                                            />
-                                            <TextBlock
-                                                Grid.Row="1"
-                                                Grid.Column="0"
-                                            >
-                                                Resistance
-                                            </TextBlock>
-                                            <TextBox
-                                                Grid.Row="2"
-                                                Grid.Column="0"
-                                                Text="{Binding Path=Value.Raw, UpdateSourceTrigger=PropertyChanged}"
-                                            />
-                                            <TextBlock
-                                                Grid.Row="1"
-                                                Grid.Column="1"
-                                            >
-                                                Current
-                                            </TextBlock>
-                                            <TextBlock
-                                                Grid.Row="2"
-                                                Grid.Column="1"
-                                                Style="{StaticResource OutputText}"
-                                                Text="{Binding Path=Current}"
-                                            />
-                                        </Grid>
-                                    </Border>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                            <ListView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel Orientation="Vertical"/>
-                                </ItemsPanelTemplate>
-                            </ListView.ItemsPanel>
-                        </ListView>
+                      <TextBlock
+                        Grid.ColumnSpan="3"
+                        HorizontalAlignment="Center"
+                        Text="{Binding Path=Number, StringFormat=R{0}}"
+                      />
+                      <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="0"
+                      >
+                        Resistance
+                      </TextBlock>
+                      <TextBox
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Text="{Binding Path=Value, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"
+                      />
+                      <TextBlock
+                        Grid.Row="1"
+                        Grid.Column="1"
+                      >
+                        Current
+                      </TextBlock>
+                      <TextBlock
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Style="{StaticResource OutputText}"
+                        Text="{Binding Path=Current, Converter={StaticResource SuffixConverter}}"
+                      />
                     </Grid>
-                </Border>
-
-                <TextBlock Grid.Row="4" Grid.Column="0">Text Input Test</TextBlock>
-                <components:NumberInputControl
-                    Grid.Row="4"
-                    Grid.Column="1"
-                    Number="{Binding Path=NumberTest, UpdateSourceTrigger=PropertyChanged}"
-                />
-                <TextBlock Grid.Row="5" Grid.Column="0">Text Output Test</TextBlock>
-                <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Path=NumberTest}"/>
-            </Grid>
+                  </Border>
+                </DataTemplate>
+              </ListView.ItemTemplate>
+              <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+              </ListView.ItemsPanel>
+            </ListView>
+          </Grid>
         </Border>
 
-        <Image Grid.Column="1" Source="/Resources/CurrentDivider.PNG"/>
-    </Grid>
+        <TextBlock Grid.Row="4" Grid.Column="0">Text Input Test</TextBlock>
+        <components:NumberInputControl
+          Grid.Row="4"
+          Grid.Column="1"
+          Number="{Binding Path=NumberTest, UpdateSourceTrigger=PropertyChanged}"
+        />
+        <TextBlock Grid.Row="5" Grid.Column="0">Text Output Test</TextBlock>
+        <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Path=NumberTest}"/>
+      </Grid>
+    </Border>
+
+    <Image Grid.Column="1" Source="/Resources/CurrentDivider.PNG"/>
+  </Grid>
 </UserControl>

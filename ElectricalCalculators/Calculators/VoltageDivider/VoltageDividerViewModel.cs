@@ -41,7 +41,7 @@ namespace ElectricalCalculators.Calculators.VoltageDivider
       {
          if (VCC is null && TopResistor is null && BottomResistor is null) return;
          OutputVoltage = DividerCalculator.CalcVoltageDivider((double)VCC!, (double)TopResistor!, (double)BottomResistor!);
-         OutputCurrent = OhmsLawCalculator.CalcCurr(VCC, TopResistor + BottomResistor, null);
+         OutputCurrent = OhmsLawCalculator.CalcCurr(VCC, TopResistor + BottomResistor, 0);
       }
 
       private void CalcResistor()

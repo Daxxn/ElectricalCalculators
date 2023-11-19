@@ -14,15 +14,14 @@ namespace ElectricalCalculators.Models
         #endregion
 
         #region Methods
-        public static (double totalRes, double totalCurr) CalcCurrent(double vcc, IEnumerable<Resistor> resistors)
+        public static (double? totalRes, double? totalCurr) CalcCurrent(double? vcc, IEnumerable<Resistor> resistors)
         {
-            double totalRes = 0;
-            //double totalCurr = 0;
+            double? totalRes = 0;
 
             foreach (Resistor res in resistors)
             {
-                totalRes += 1 / res.Value.Raw;
-                var tempCurr = vcc / res.Value.Raw;
+                totalRes += 1 / res.Value;
+                var tempCurr = vcc / res.Value;
                 res.Current = tempCurr;
             }
             totalRes = 1 / totalRes;

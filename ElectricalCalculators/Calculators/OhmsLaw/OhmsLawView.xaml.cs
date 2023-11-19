@@ -39,5 +39,16 @@ namespace ElectricalCalculators.Calculators.OhmsLaw
       {
          if (sender is TextBox tb) tb.SelectAll();
       }
+
+      private void OhmsLaw_LostFocus(object sender, RoutedEventArgs e)
+      {
+         if (sender is TextBox tb)
+         {
+            if (!string.IsNullOrEmpty(tb.Text))
+            {
+               VM.UpdateTextBoxHistory(tb.TabIndex);
+            }
+         }
+      }
    }
 }

@@ -14,17 +14,43 @@ namespace ElectricalCalculators.Calculators.OhmsLaw
    public class OhmsLawViewModel : ViewModel
    {
       #region Local Props
-      public event EventHandler ClearEvent = (s,e) => { };
-      //public Dictionary<int, string> PrefixesDict = ElectricalCalculators.Models.Prefixes.AllPrefixes;
+      public event EventHandler ClearEvent = (s, e) => { };
       private double? _resistance = null;
       private double? _voltage = null;
       private double? _current = null;
       private double? _power = null;
 
+      /// <summary>
+      /// Used to identify what value to calculate
+      /// <para/>
+      /// <list type="table">
+      ///   <item>
+      ///      <term>1</term>
+      ///      <description>Voltage</description>
+      ///   </item>
+      ///   <item>
+      ///      <term>2</term>
+      ///      <description>Resistance</description>
+      ///   </item>
+      ///   <item>
+      ///      <term>3</term>
+      ///      <description>Current</description>
+      ///   </item>
+      ///   <item>
+      ///      <term>4</term>
+      ///      <description>Power</description>
+      ///   </item>
+      /// </list>
+      /// </summary>
+      private Stack<int> TextBoxHistory { get; set; } = new();
+
       private bool? _voltageInput = null;
       private bool? _resistanceInput = null;
       private bool? _currentInput = null;
       private bool? _powerInput = null;
+
+      private int[] _history = new int[4];
+      private int _count = 1;
 
       #region Commands
       public Command CalculateCmd { get; init; }
@@ -37,6 +63,8 @@ namespace ElectricalCalculators.Calculators.OhmsLaw
       {
          CalculateCmd = new(Calculate);
          ClearCmd = new(Clear);
+
+         TextBoxHistory.Clear();
       }
       #endregion
 
@@ -46,17 +74,26 @@ namespace ElectricalCalculators.Calculators.OhmsLaw
          try
          {
             if (Voltage is null && Resistance is null && Current is null && Power is null) return;
-            VoltageInput = Voltage != 0 && Voltage is not null;
-            ResistanceInput = Resistance != 0 && Resistance is not null;
-            CurrentInput = Current != 0 && Current is not null;
-            PowerInput = Power != 0 && Power is not null;
 
-            (Voltage, Resistance, Current, Power) = OhmsLawCalculator.Calculate(
-                Voltage,
-                Resistance,
-                Current,
-                Power
-            );
+            int min = _history.Min();
+            List<int> calcList = new();
+            for (int i = 0; i < 4; i++)
+            {
+               if (_history[i] == min)
+                  calcList.Add(i);
+            }
+            if (calcList.Count >= 2)
+            {
+               (Voltage, Resistance, Current, Power) = OhmsLawCalculator.Calculate2(
+                  calcList.ToArray(),
+                  Voltage,
+                  Resistance,
+                  Current,
+                  Power
+               );
+               //_count = 1;
+               //_history = new int[4];
+            }
          }
          catch (ArgumentException)
          {
@@ -68,17 +105,38 @@ namespace ElectricalCalculators.Calculators.OhmsLaw
          }
       }
 
+      private bool RemoveRecent()
+      {
+         if (TextBoxHistory.Count < 2)
+         {
+            return false;
+         }
+         while (TextBoxHistory.Count > 2)
+         {
+            TextBoxHistory.Pop();
+         }
+         return true;
+      }
+
       private void Clear()
       {
+         _count = 1;
+         _history = new int[4];
          Voltage = null;
-         VoltageInput = null;
+         //VoltageInput = null;
          Resistance = null;
-         ResistanceInput = null;
+         //ResistanceInput = null;
          Current = null;
-         CurrentInput = null;
+         //CurrentInput = null;
          Power = null;
-         PowerInput = null;
+         //PowerInput = null;
          ClearEvent?.Invoke(this, new());
+      }
+
+      public void UpdateTextBoxHistory(int index)
+      {
+         _history[index] = _count;
+         _count++;
       }
       #endregion
 

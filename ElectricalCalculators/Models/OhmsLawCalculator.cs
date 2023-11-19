@@ -48,9 +48,35 @@ namespace ElectricalCalculators.Models.OhmsLaw
          }
       }
 
-      public static (double? v, double? r, double? i, double? p) Calculate2(double? voltage, double? resistance, double? current, double? power)
+      public static (double? v, double? r, double? i, double? p) Calculate2(int[] index, double? voltage, double? resistance, double? current, double? power)
       {
-         throw new NotImplementedException();
+         double? v = voltage;
+         double? r = resistance;
+         double? c = current;
+         double? p = power;
+         for (int i = 0; i < index.Length; i++)
+         {
+            switch (index[i])
+            {
+               case 0:
+                  if (resistance is null && current is null && power is null) break;
+                  v = CalcVolt(resistance, current, power);
+                  break;
+               case 1:
+                  if (voltage is null && current is null && power is null) break;
+                  r = CalcRes(voltage, current, power);
+                  break;
+               case 2:
+                  if (voltage is null && resistance is null && power is null) break;
+                  c = CalcCurr(voltage, resistance, power);
+                  break;
+               case 3:
+                  if (voltage is null && resistance is null && current is null) break;
+                  p = CalcPwr(voltage, resistance, current);
+                  break;
+            }
+         }
+         return (v, r, c, p);
       }
 
       //public static (double, double, double, double) Calculate(double voltage, double resistance, double current, double power)

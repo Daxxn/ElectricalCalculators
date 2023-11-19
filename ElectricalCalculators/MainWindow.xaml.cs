@@ -1,5 +1,4 @@
 ﻿using ElectricalCalculators.Calculators.Binary;
-using ElectricalCalculators.Calculators.BomReader;
 using ElectricalCalculators.Calculators.CurrentDivider;
 using ElectricalCalculators.Calculators.DimsHelper;
 using ElectricalCalculators.Calculators.LEDCurrent;
@@ -47,7 +46,6 @@ namespace ElectricalCalculators
          CurrentDividerTab.Content = new CurrentDividerView();
          MilToMetricTab.Content = new MilToMetricView();
          BinaryTab.Content = new BinaryView();
-         BOMTab.Content = new BomReaderView();
          MOSFETTab.Content = new MOSFETCalcView();
          MaxFreqTab.Content = new MaxFreqView();
          DimsHelperTab.Content = new DimsHelperView();

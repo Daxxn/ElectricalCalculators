@@ -44,7 +44,8 @@
           Text="{Binding Path=Voltage, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"
           Background="{Binding Path=VoltageInput, Converter={StaticResource InputConverter}}"
           GotFocus="TextBox_GotFocus"
-          TabIndex="1"
+          LostFocus="OhmsLaw_LostFocus"
+          TabIndex="0"
         >
           <TextBox.InputBindings>
             <KeyBinding Key="Return" Command="{Binding Path=CalculateCmd}"/>
@@ -60,7 +61,8 @@
           Text="{Binding Path=Resistance, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"
           Background="{Binding Path=ResistanceInput, Converter={StaticResource InputConverter}}"
           GotFocus="TextBox_GotFocus"
-          TabIndex="2"
+          LostFocus="OhmsLaw_LostFocus"
+          TabIndex="1"
         >
           <TextBox.InputBindings>
             <KeyBinding Key="Return" Command="{Binding Path=CalculateCmd}"/>
@@ -76,7 +78,8 @@
           Text="{Binding Path=Current, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"
           Background="{Binding Path=CurrentInput, Converter={StaticResource InputConverter}}"
           GotFocus="TextBox_GotFocus"
-          TabIndex="3"
+          LostFocus="OhmsLaw_LostFocus"
+          TabIndex="2"
         >
           <TextBox.InputBindings>
             <KeyBinding Key="Return" Command="{Binding Path=CalculateCmd}"/>
@@ -92,7 +95,8 @@
           Text="{Binding Path=Power, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"
           Background="{Binding Path=PowerInput, Converter={StaticResource InputConverter}}"
           GotFocus="TextBox_GotFocus"
-          TabIndex="4"
+          LostFocus="OhmsLaw_LostFocus"
+          TabIndex="3"
         >
           <TextBox.InputBindings>
             <KeyBinding Key="Return" Command="{Binding Path=CalculateCmd}"/>

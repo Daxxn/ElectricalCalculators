@@ -135,7 +135,7 @@
             <TextBlock Grid.Row="3" Grid.Column="3">V</TextBlock>
 
             <StackPanel Grid.Row="4" Grid.ColumnSpan="4" Orientation="Vertical">
-              <Button Command="{Binding Path=CalcCmd}">Calculate</Button>
+              <Button Command="{Binding Path=CalcRatioCmd}">Calculate</Button>
               <Button Command="{Binding Path=ClearCmd}">Clear</Button>
             </StackPanel>
 

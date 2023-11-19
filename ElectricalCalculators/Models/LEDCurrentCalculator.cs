@@ -30,7 +30,7 @@ namespace ElectricalCalculators.Models.LEDCurrent
       //   return num;
       //}
 
-      public static double Calc(double vcc, double fVolt, double fCurr)
+      public static double? Calc(double? vcc, double? fVolt, double? fCurr)
       {
          return (vcc - fVolt) / (fCurr * 0.001);
       }
@@ -42,7 +42,7 @@ namespace ElectricalCalculators.Models.LEDCurrent
       //   return num;
       //}
 
-      public static double CalcPower(double vcc, double fCurr) => vcc * fCurr;
+      public static double? CalcPower(double? vcc, double? fCurr) => vcc * fCurr;
       #endregion
 
       #region Full Props
