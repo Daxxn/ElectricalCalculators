@@ -36,7 +36,7 @@
     <Setter Property="FontWeight" Value="DemiBold"/>
     <Setter Property="Panel.ZIndex" Value="100"/>
     <Setter Property="TextAlignment" Value="Center"/>
-    <Setter Property="Padding" Value="4"/>
+    <Setter Property="Padding" Value="2"/>
   </Style>
   <Style TargetType="TextBlock" x:Key="DimsResultText">
     <Setter Property="Background" Value="#11FFFFFF"/>

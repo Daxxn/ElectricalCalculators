@@ -25,6 +25,7 @@ namespace ElectricalCalculators.Calculators.VoltageDivider
       #region Commands
       public Command CalcCmd { get; init; }
       public Command CalcRatioCmd { get; init; }
+      public Command ClearCmd { get; init; }
       #endregion
       #endregion
 
@@ -33,6 +34,7 @@ namespace ElectricalCalculators.Calculators.VoltageDivider
       {
          CalcCmd = new(CalcOutput);
          CalcRatioCmd = new(CalcResistor);
+         ClearCmd = new(Clear);
       }
       #endregion
 
@@ -48,6 +50,15 @@ namespace ElectricalCalculators.Calculators.VoltageDivider
       {
          if (VCC is null && TopResistor is null && OutputVoltage is null) return;
          BottomResistor = (OutputVoltage * TopResistor) / (VCC - OutputVoltage);
+      }
+
+      private void Clear()
+      {
+         VCC = null;
+         TopResistor = null;
+         BottomResistor = null;
+         OutputVoltage = null;
+         OutputCurrent = null;
       }
       #endregion
 

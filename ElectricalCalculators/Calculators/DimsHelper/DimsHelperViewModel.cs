@@ -11,17 +11,19 @@ namespace ElectricalCalculators.Calculators.DimsHelper
    public class DimsHelperViewModel : ViewModel
    {
       #region Local Props
-      private double _innerWidth = 0;
-      private double _outerWidth = 0;
+      private double? _innerWidth = null;
+      private double? _outerWidth = null;
 
-      private double _halfCenterWidth = 0;
+      private double? _halfCenterWidth = null;
 
-      private double _padWidth = 0;
+      private double? _padWidth = null;
+      private double? _padCentersWidth = null;
 
       private bool _showPackage = false;
 
       #region Commands
       public Command ShowPackageCmd { get; init; }
+      public Command CalcCmd { get; init; }
       #endregion
       #endregion
 
@@ -29,16 +31,15 @@ namespace ElectricalCalculators.Calculators.DimsHelper
       public DimsHelperViewModel()
       {
          ShowPackageCmd = new(() => ShowPackage = !ShowPackage);
+         CalcCmd = new(Calc);
       }
       #endregion
 
       #region Methods
-      private void Calc()
+      public void Calc()
       {
-         if (InnerWidth == 0 || OuterWidth == 0) return;
-
-         PadWidth = DimsCalculator.CalcPadSize(InnerWidth, OuterWidth);
-         HalfCenterWidth = DimsCalculator.CalcPadHalfCoordinate(InnerWidth, PadWidth);
+         (InnerWidth, OuterWidth, PadWidth) = DimsCalculator.Calc(InnerWidth, OuterWidth, PadWidth);
+         PadCentersWidth = DimsCalculator.CalcPadHalfCoordinate(InnerWidth, OuterWidth);
       }
       #endregion
 
@@ -59,45 +60,43 @@ namespace ElectricalCalculators.Calculators.DimsHelper
          get => !ShowPackage ? "Show Pkg" : "Hide Pkg";
       }
 
-      public double InnerWidth
+      public double? InnerWidth
       {
          get => _innerWidth;
          set
          {
             _innerWidth = value;
-            Calc();
             OnPropertyChanged();
+            OnPropertyChanged(nameof(CenterLine));
+            OnPropertyChanged(nameof(PadCentersWidth));
          }
       }
 
-      public double OuterWidth
+      public double? OuterWidth
       {
          get => _outerWidth;
          set
          {
             _outerWidth = value;
-            Calc();
             OnPropertyChanged();
+            OnPropertyChanged(nameof(CenterLine));
+            OnPropertyChanged(nameof(PadCentersWidth));
          }
       }
 
-      public double CenterWidth
+      public double? PadCentersWidth
       {
-         get => _halfCenterWidth * 2;
-      }
-
-      public double HalfCenterWidth
-      {
-         get => _halfCenterWidth;
+         get => _padCentersWidth;
          set
          {
-            _halfCenterWidth = value;
+            _padCentersWidth = value;
             OnPropertyChanged();
-            OnPropertyChanged(nameof(CenterWidth));
          }
       }
 
-      public double PadWidth
+      public double? CenterLine => PadCentersWidth / 2;
+
+      public double? PadWidth
       {
          get => _padWidth;
          set

@@ -19,7 +19,7 @@ public class SuffixConverter : IValueConverter
    {
       if (value is double output)
       {
-         return parser.Convert(output);
+         return parser.Convert(output, (string?)parameter);
       }
       return null;
    }

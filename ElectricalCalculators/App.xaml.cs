@@ -6,7 +6,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
+using ElectricalCalculators.Utils;
+
 using ElectricalSuffixParser.Models;
+
+using SettingsLibrary;
 
 namespace ElectricalCalculators
 {
@@ -15,12 +19,14 @@ namespace ElectricalCalculators
    /// </summary>
    public partial class App : Application
    {
+      public static MainViewModel MainVM { get; private set; } = new();
       public static SuffixModelManager SuffixManager = new();
 
       protected override void OnStartup(StartupEventArgs e)
       {
          try
          {
+            MainVM.OnStartup();
             SuffixManager.OnStartup(nameof(ElectricalCalculators));
          }
          catch (Exception ex)
@@ -34,6 +40,7 @@ namespace ElectricalCalculators
       {
          try
          {
+            MainVM.OnExit();
             SuffixManager.OnExit(nameof(ElectricalCalculators));
          }
          catch (Exception ex)

@@ -23,26 +23,25 @@
       </MenuItem>
     </Menu>
 
-    <TabControl Grid.Row="1">
+    <TabControl Grid.Row="1" SelectedIndex="{Binding Path=Settings.TabIndex, UpdateSourceTrigger=PropertyChanged}">
       <TabItem Header="Ohms Law" x:Name="OhmsLawTab"/>
-      <TabItem Header="Metric Prefixes" x:Name="MetricPrefixTab"/>
-      <TabItem Header="Mil To Metric" x:Name="MilToMetricTab"/>
       <TabItem Header="LED Current" x:Name="LEDCurrentTab"/>
       <TabItem Header="Voltage Divider" x:Name="VoltageDividerTab"/>
-      <TabItem Header="Current Divider" x:Name="CurrentDividerTab"/>
-      <TabItem Header="Binary" x:Name="BinaryTab"/>
-      <TabItem Header="BOM" x:Name="BOMTab"/>
-      <TabItem Header="MOSFETs" x:Name="MOSFETTab"/>
-      <TabItem Header="Max Frequency" x:Name="MaxFreqTab"/>
-      <TabItem Header="Dimensions" Name="DimsHelperTab"/>
-      <TabItem Header="Radial" x:Name="RadialTab"/>
-      <TabItem Header="Annular Ring" Name="AnnularTab"/>
-      <TabItem Header="STM32 Timers">
-        <stm32:STM32ClockView/>
-      </TabItem>
       <TabItem Header="LowPass Filter">
         <lpf:LowPassView/>
       </TabItem>
+      <TabItem Header="STM32 Timers">
+        <stm32:STM32ClockView/>
+      </TabItem>
+      <TabItem Header="MOSFETs" x:Name="MOSFETTab"/>
+      <TabItem Header="Dimensions" Name="DimsHelperTab"/>
+      <TabItem Header="Max Frequency" x:Name="MaxFreqTab"/>
+      <TabItem Header="Radial" x:Name="RadialTab"/>
+      <TabItem Header="Annular Ring" Name="AnnularTab"/>
+      <TabItem Header="Mil To Metric" x:Name="MilToMetricTab"/>
+      <TabItem Header="Binary" x:Name="BinaryTab"/>
+      <TabItem Header="Current Divider" x:Name="CurrentDividerTab"/>
+      <TabItem Header="Metric (OLD)" x:Name="MetricPrefixTab"/>
     </TabControl>
   </Grid>
 </Window>

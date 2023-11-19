@@ -31,5 +31,10 @@ namespace ElectricalCalculators.Calculators.DimsHelper
       {
          if (sender is TextBox tb) tb.SelectAll();
       }
+
+      private void Dims_LostFocus(object sender, RoutedEventArgs e)
+      {
+         VM.Calc();
+      }
    }
 }

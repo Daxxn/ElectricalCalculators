@@ -14,14 +14,7 @@ namespace ElectricalCalculators.Utils.Converters
       {
          if (value is double d)
          {
-            if (d == 0)
-            {
-               return "0.0";
-            }
-            else if (d % 1 == 0)
-            {
-               return $"{d}.0";
-            }
+            return Math.Round(d, 4);
          }
          return value;
       }

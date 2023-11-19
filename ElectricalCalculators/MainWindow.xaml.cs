@@ -35,7 +35,7 @@ namespace ElectricalCalculators
       public MainViewModel VM { get; init; }
       public MainWindow()
       {
-         VM = new MainViewModel();
+         VM = App.MainVM;
          DataContext = VM;
          InitializeComponent();
 
