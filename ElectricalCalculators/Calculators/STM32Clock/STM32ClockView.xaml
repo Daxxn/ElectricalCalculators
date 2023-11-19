@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="ElectricalCalculators.Calculators.STM32Clock.STM32ClockView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:conv="clr-namespace:ElectricalCalculators.Utils.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+  <UserControl.Resources>
+    <conv:SuffixConverter x:Key="SuffixConverter"/>
+  </UserControl.Resources>
+  <Grid Grid.Column="0">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="Auto"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+
+    <TextBlock Grid.Row="0" Grid.Column="0" Padding="0,0,10,0">Prescalar</TextBlock>
+    <TextBlock Grid.Row="0" Grid.Column="1">16b uint</TextBlock>
+    <TextBox
+      x:Name="PrescalarTB"
+      GotFocus="TextBox_GotFocus"
+      Grid.Row="0"
+      Grid.Column="2"
+      Text="{Binding Path=Prescalar, UpdateSourceTrigger=PropertyChanged}"
+    />
+    <StackPanel Grid.Row="0" Grid.Column="3" Orientation="Vertical">
+      <Button FontSize="8" Padding="0" Margin="2" Click="Prescalar_Max_Click">MAX</Button>
+      <Button FontSize="8" Padding="0" Margin="2" Click="Prescalar_Min_Click">MIN</Button>
+    </StackPanel>
+
+    <TextBlock Grid.Row="1" Grid.Column="0">Period</TextBlock>
+    <TextBlock Grid.Row="1" Grid.Column="1">16b uint</TextBlock>
+    <TextBox
+      x:Name="PeriodTB"
+      GotFocus="TextBox_GotFocus"
+      Grid.Row="1"
+      Grid.Column="2"
+      Text="{Binding Path=Period, UpdateSourceTrigger=PropertyChanged}"
+    />
+    <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Vertical">
+      <Button FontSize="8" Padding="0" Margin="2" Click="Period_Max_Click">MAX</Button>
+      <Button FontSize="8" Padding="0" Margin="2" Click="Period_Min_Click">MIN</Button>
+    </StackPanel>
+
+    <TextBlock Grid.Row="2" Grid.Column="0">Clock</TextBlock>
+    <TextBlock Grid.Row="2" Grid.Column="1">Hz</TextBlock>
+    <TextBox
+      x:Name="ClockTB"
+      Grid.Row="2"
+      Grid.Column="2"
+      Grid.ColumnSpan="2"
+      GotFocus="TextBox_GotFocus"
+      Text="{Binding Path=ClockFrequency, UpdateSourceTrigger=LostFocus, Converter={StaticResource SuffixConverter}, ConverterParameter=Hz}"
+    />
+
+    <StackPanel Orientation="Vertical" Grid.Row="3" Grid.ColumnSpan="4">
+      <TextBlock FontWeight="DemiBold">Timer Frequency</TextBlock>
+      <TextBox
+        x:Name="TimerTB"
+        FontWeight="Bold"
+        FontSize="14"
+        GotFocus="TextBox_GotFocus"
+        Text="{Binding Path=TimerFrequency, UpdateSourceTrigger=LostFocus, Converter={StaticResource SuffixConverter}, ConverterParameter=Hz}"
+      />
+    </StackPanel>
+
+    <StackPanel Orientation="Vertical" Grid.Row="4" Grid.ColumnSpan="4">
+      <TextBlock FontWeight="DemiBold">Timer Interval</TextBlock>
+      <TextBox
+        x:Name="IntervalTB"
+        FontWeight="Bold"
+        FontSize="14"
+        GotFocus="TextBox_GotFocus"
+        Text="{Binding Path=TimerInterval, UpdateSourceTrigger=LostFocus, Converter={StaticResource SuffixConverter}, ConverterParameter=s}"
+      />
+    </StackPanel>
+
+    <Button Grid.Row="5" Grid.ColumnSpan="4" Margin="0,4" Command="{Binding Path=CalcCmd}">Calc</Button>
+    <Button Grid.Row="6" Grid.ColumnSpan="4" Margin="0,4" Command="{Binding Path=ClearCmd}">Clear</Button>
+    
+    <TextBlock Grid.Row="7" Grid.Column="0">Toggle Wait Time</TextBlock>
+    <TextBlock Grid.Row="7" Grid.Column="1">sec</TextBlock>
+    <TextBlock Grid.Row="7" Grid.Column="2" Text="{Binding Path=ToggleTimerInterval, Converter={StaticResource SuffixConverter}, ConverterParameter=s}"/>
+  </Grid>
+</UserControl>

@@ -15,6 +15,15 @@
     />
     <conv:DecimalConverter x:Key="DecimalConverter"/>
     <conv:ResistanceConverter x:Key="ResistanceConverter"/>
+    <Style TargetType="TextBlock" x:Key="ColorTB">
+      <Setter Property="VerticalAlignment" Value="Stretch"/>
+      <Setter Property="HorizontalAlignment" Value="Center"/>
+      <Setter Property="FontSize" Value="18"/>
+      <Setter Property="FontFamily" Value="Fira-Code"/>
+      <Setter Property="Width" Value="200"/>
+      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="Padding" Value="16,20,0,0"/>
+    </Style>
   </UserControl.Resources>
   <Grid>
     <Grid.ColumnDefinitions>
@@ -114,6 +123,129 @@
       </Grid>
     </Border>
 
-    <Image Grid.Column="1" Source="/Resources/LEDCurrentLim.PNG"/>
+    <Grid Grid.Column="1">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+
+      <Grid Grid.Column="0">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock
+          x:Name="IR_TB"
+          MouseLeftButtonDown="Color_Click"
+          Grid.Row="0"
+          Background="#940404"
+          Style="{StaticResource ColorTB}"
+        >
+          IR 1.2 - 1.45 - 1.7
+        </TextBlock>
+
+        <TextBlock
+          x:Name="Red_TB"
+          MouseLeftButtonDown="Color_Click"
+          Grid.Row="1"
+          Background="Red"
+          Style="{StaticResource ColorTB}"
+        >
+          Red 1.6 - 1.85 - 2.1
+        </TextBlock>
+
+        <TextBlock
+          x:Name="Amber_TB"
+          MouseLeftButtonDown="Color_Click"
+          Grid.Row="2"
+          Background="OrangeRed"
+          Style="{StaticResource ColorTB}"
+        >
+          Amber 2.0 - 2.1 - 2.2
+        </TextBlock>
+
+        <TextBlock
+          x:Name="Orange_TB"
+          MouseLeftButtonDown="Color_Click"
+          Grid.Row="3"
+          Background="Orange"
+          Style="{StaticResource ColorTB}"
+        >
+          Orange 1.9 - 2.05 - 2.2
+        </TextBlock>
+
+        <TextBlock
+          x:Name="Yellow_TB"
+          MouseLeftButtonDown="Color_Click"
+          Grid.Row="4"
+          Background="Yellow"
+          Foreground="Gray"
+          Style="{StaticResource ColorTB}"
+        >
+          Yellow 1.9 - 2.05 - 2.2
+        </TextBlock>
+
+        <TextBlock
+          x:Name="Green_TB"
+          MouseLeftButtonDown="Color_Click"
+          Grid.Row="5"
+          Background="Green"
+          Style="{StaticResource ColorTB}"
+        >
+          Green 2.0 - 2.55 - 3.1
+        </TextBlock>
+
+        <TextBlock
+          x:Name="Blue_TB"
+          MouseLeftButtonDown="Color_Click"
+          Grid.Row="6"
+          Background="Blue"
+          Style="{StaticResource ColorTB}"
+        >
+          Blue 3.0 - 3.35 - 3.7
+        </TextBlock>
+
+        <TextBlock
+          x:Name="Purple_TB"
+          MouseLeftButtonDown="Color_Click"
+          Grid.Row="7"
+          Background="Purple"
+          Style="{StaticResource ColorTB}"
+        >
+          Purple 2.8 - 3.05 - 3.3
+        </TextBlock>
+
+        <TextBlock
+          x:Name="UV_TB"
+          MouseLeftButtonDown="Color_Click"
+          Grid.Row="8"
+          Background="#440044"
+          Style="{StaticResource ColorTB}"
+        >
+          UV 4.0 - 5.0 - 6.0
+        </TextBlock>
+
+        <TextBlock
+          x:Name="White_TB"
+          MouseLeftButtonDown="Color_Click"
+          Grid.Row="9"
+          Background="White"
+          Foreground="Black"
+          Style="{StaticResource ColorTB}"
+        >
+          White 3.0 - 3.2 - 3.4
+        </TextBlock>
+      </Grid>
+      <Image Grid.Column="1" Source="/Resources/LEDCurrentLim.PNG"/>
+    </Grid>
   </Grid>
 </UserControl>

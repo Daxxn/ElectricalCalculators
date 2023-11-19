@@ -5,174 +5,150 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ElectricalCalculators.Calculators.VoltageDivider"
              xmlns:models="clr-namespace:ElectricalCalculators.Models.Prefixes"
+             xmlns:conv="clr-namespace:ElectricalCalculators.Utils.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <ObjectDataProvider
-            x:Key="ResistorPrefixesData"
-            ObjectType="{x:Type models:PrefixModel}"
-            MethodName="GetResistorPrefixes"
-        />
-    </UserControl.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+  <UserControl.Resources>
+    <ObjectDataProvider
+      x:Key="ResistorPrefixesData"
+      ObjectType="{x:Type models:PrefixModel}"
+      MethodName="GetResistorPrefixes"
+    />
+    <conv:SuffixConverter x:Key="SuffixConverter"/>
+  </UserControl.Resources>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Border Grid.Column="0" Style="{StaticResource ModuleBorder}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Style="{StaticResource SmallTitleText}">Basic Divider</TextBlock>
+    <Border Grid.Column="0">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="*"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Column="0" Style="{StaticResource ModuleBorder}">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Style="{StaticResource SmallTitleText}">Basic Divider</TextBlock>
 
-                        <TextBlock Grid.Row="1" Grid.Column="0">VCC</TextBlock>
-                        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Path=VCC}"/>
-                        <TextBlock Grid.Row="1" Grid.Column="3">V</TextBlock>
+            <TextBlock Grid.Row="1" Grid.Column="0">VCC</TextBlock>
+            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Path=VCC, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"/>
+            <TextBlock Grid.Row="1" Grid.Column="3">V</TextBlock>
 
-                        <TextBlock Grid.Row="2" Grid.Column="0" ToolTip="Top Resistor">R1</TextBlock>
-                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=TopResistor.Base}"/>
-                        <ComboBox
-                            Grid.Row="2"
-                            Grid.Column="2"
-                            ItemsSource="{Binding Source={StaticResource ResistorPrefixesData}}"
-                            SelectedValue="{Binding Path=TopResistor.Exponent}"
-                            SelectedValuePath="Key"
-                            DisplayMemberPath="Value"
-                        />
-                        <TextBlock Grid.Row="2" Grid.Column="3" >&#x2126;</TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="0" ToolTip="Top Resistor">R1</TextBlock>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=TopResistor, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"/>
+            <TextBlock Grid.Row="2" Grid.Column="3" >&#x2126;</TextBlock>
 
-                        <TextBlock Grid.Row="3" Grid.Column="0" ToolTip="Bottom Resistor">R2</TextBlock>
-                        <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=BottomResistor.Base}"/>
-                        <ComboBox
-                            Grid.Row="3"
-                            Grid.Column="2"
-                            ItemsSource="{Binding Source={StaticResource ResistorPrefixesData}}"
-                            SelectedValue="{Binding Path=BottomResistor.Exponent}"
-                            SelectedValuePath="Key"
-                            DisplayMemberPath="Value"
-                        />
-                        <TextBlock Grid.Row="3" Grid.Column="3" >&#x2126;</TextBlock>
+            <TextBlock Grid.Row="3" Grid.Column="0" ToolTip="Bottom Resistor">R2</TextBlock>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=BottomResistor, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"/>
+            <TextBlock Grid.Row="3" Grid.Column="3" >&#x2126;</TextBlock>
 
-                        <Button Grid.Row="4" Grid.ColumnSpan="4" Command="{Binding Path=CalcCmd}">Calculate</Button>
+            <StackPanel Grid.Row="4" Grid.ColumnSpan="4" Orientation="Vertical">
+              <Button Command="{Binding Path=CalcCmd}">Calculate</Button>
+              <Button Command="{Binding Path=ClearCmd}">Clear</Button>
+            </StackPanel>
 
-                        <TextBlock Grid.Row="5" Style="{StaticResource SmallTitleText}" FontSize="12">Output</TextBlock>
+            <TextBlock Grid.Row="5" Style="{StaticResource SmallTitleText}" FontSize="12">Output</TextBlock>
 
-                        <TextBlock Grid.Row="6">Voltage</TextBlock>
-                        <TextBlock Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource OutputText}" Text="{Binding Path=OutputVoltage}"/>
-                        <TextBlock Grid.Row="6" Grid.Column="3">V</TextBlock>
+            <TextBlock Grid.Row="6">Voltage</TextBlock>
+            <TextBlock Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource OutputText}" Text="{Binding Path=OutputVoltage, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"/>
+            <TextBlock Grid.Row="6" Grid.Column="3">V</TextBlock>
 
-                        <TextBlock Grid.Row="7" Grid.Column="0">Current</TextBlock>
-                        <TextBlock Grid.Row="7" Grid.Column="1" Style="{StaticResource OutputText}" Text="{Binding Path=OutputCurrent.Base}">
-                            <TextBlock.ToolTip>
-                                <TextBlock>
-                                    <Run>Full </Run>
-                                    <Run Text="{Binding Path=OutputCurrent.Raw}"/>
-                                </TextBlock>
-                            </TextBlock.ToolTip>
-                        </TextBlock>
-                        <TextBlock Grid.Row="7" Grid.Column="2" Text="{Binding Path=OutputCurrent.Prefix}" HorizontalAlignment="Right" Padding="1,1,0,1" Margin="1,1,0,1">
-                            <TextBlock.ToolTip>
-                                <TextBlock>
-                                    <Run>Full </Run>
-                                    <Run Text="{Binding Path=OutputCurrent.Raw}"/>
-                                </TextBlock>
-                            </TextBlock.ToolTip>
-                        </TextBlock>
-                        <TextBlock Grid.Row="7" Grid.Column="3" Padding="0,1,1,1" Margin="0,1,1,1">
-                            <TextBlock.ToolTip>
-                                <TextBlock>
-                                    <Run>Full </Run>
-                                    <Run Text="{Binding Path=OutputCurrent.Raw}"/>
-                                </TextBlock>
-                            </TextBlock.ToolTip>
-                            A
-                        </TextBlock>
-                    </Grid>
-                </Border>
-
-                <Border Grid.Row="1" Style="{StaticResource ModuleBorder}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <TextBlock Grid.Row="0" Style="{StaticResource SmallTitleText}">Ratio Divider</TextBlock>
-
-                        <TextBlock Grid.Row="1" Grid.Column="0">VCC</TextBlock>
-                        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Path=VCC}"/>
-                        <TextBlock Grid.Row="1" Grid.Column="3">V</TextBlock>
-
-                        <TextBlock Grid.Row="2" Grid.Column="0" ToolTip="Top Resistor">R1</TextBlock>
-                        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=TopResistor.Base}"/>
-                        <ComboBox
-                            Grid.Row="2"
-                            Grid.Column="2"
-                            ItemsSource="{Binding Source={StaticResource ResistorPrefixesData}}"
-                            SelectedValue="{Binding Path=TopResistor.Exponent}"
-                            SelectedValuePath="Key"
-                            DisplayMemberPath="Value"
-                        />
-                        <TextBlock Grid.Row="2" Grid.Column="3" >&#x2126;</TextBlock>
-
-                        <TextBlock Grid.Row="3" Grid.Column="0">Desired Voltage</TextBlock>
-                        <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Path=OutputVoltage}"/>
-                        <TextBlock Grid.Row="3" Grid.Column="3">V</TextBlock>
-
-                        <Button Grid.Row="4" Grid.ColumnSpan="4" Command="{Binding Path=CalcRatioCmd}">Calculate</Button>
-
-                        <TextBlock Grid.Row="5" Style="{StaticResource SmallTitleText}" FontSize="12">Output</TextBlock>
-
-                        <TextBlock Grid.Row="6" Grid.Column="0" ToolTip="Bottom Resistor">R2</TextBlock>
-                        <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Path=BottomResistor.Base}"/>
-                        <ComboBox
-                            Grid.Row="6"
-                            Grid.Column="2"
-                            ItemsSource="{Binding Source={StaticResource ResistorPrefixesData}}"
-                            SelectedValue="{Binding Path=BottomResistor.Exponent}"
-                            SelectedValuePath="Key"
-                            DisplayMemberPath="Value"
-                        />
-                        <TextBlock Grid.Row="6" Grid.Column="3" >&#x2126;</TextBlock>
-                    </Grid>
-                </Border>
-            </Grid>
+            <TextBlock Grid.Row="7" Grid.Column="0">Current</TextBlock>
+            <TextBlock Grid.Row="7" Grid.Column="1" Style="{StaticResource OutputText}" Text="{Binding Path=OutputCurrent, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}">
+              <TextBlock.ToolTip>
+                <TextBlock>
+                  <Run>Full </Run>
+                  <Run Text="{Binding Path=OutputCurrent, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"/>
+                </TextBlock>
+              </TextBlock.ToolTip>
+            </TextBlock>
+            <TextBlock Grid.Row="7" Grid.Column="2" Text="{Binding Path=OutputCurrent.Prefix}" HorizontalAlignment="Right" Padding="1,1,0,1" Margin="1,1,0,1">
+              <TextBlock.ToolTip>
+                <TextBlock>
+                  <Run>Full </Run>
+                  <Run Text="{Binding Path=OutputCurrent, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"/>
+                </TextBlock>
+              </TextBlock.ToolTip>
+            </TextBlock>
+            <TextBlock Grid.Row="7" Grid.Column="3" Padding="0,1,1,1" Margin="0,1,1,1">
+              <TextBlock.ToolTip>
+                <TextBlock>
+                  <Run>Full </Run>
+                  <Run Text="{Binding Path=OutputCurrent, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"/>
+                </TextBlock>
+              </TextBlock.ToolTip>
+              A
+            </TextBlock>
+          </Grid>
         </Border>
 
-        <Image Grid.Column="1" Source="/Resources/VoltageDivider.PNG"/>
-    </Grid>
+        <Border Grid.Row="1" Style="{StaticResource ModuleBorder}">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Style="{StaticResource SmallTitleText}">Ratio Divider</TextBlock>
+
+            <TextBlock Grid.Row="1" Grid.Column="0">VCC</TextBlock>
+            <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Path=VCC, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"/>
+            <TextBlock Grid.Row="1" Grid.Column="3">V</TextBlock>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" ToolTip="Top Resistor">R1</TextBlock>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=TopResistor, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"/>
+            <TextBlock Grid.Row="2" Grid.Column="3" >&#x2126;</TextBlock>
+
+            <TextBlock Grid.Row="3" Grid.Column="0">Desired Voltage</TextBlock>
+            <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Path=OutputVoltage, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"/>
+            <TextBlock Grid.Row="3" Grid.Column="3">V</TextBlock>
+
+            <StackPanel Grid.Row="4" Grid.ColumnSpan="4" Orientation="Vertical">
+              <Button Command="{Binding Path=CalcCmd}">Calculate</Button>
+              <Button Command="{Binding Path=ClearCmd}">Clear</Button>
+            </StackPanel>
+
+            <TextBlock Grid.Row="5" Style="{StaticResource SmallTitleText}" FontSize="12">Output</TextBlock>
+
+            <TextBlock Grid.Row="6" Grid.Column="0" ToolTip="Bottom Resistor">R2</TextBlock>
+            <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Path=BottomResistor, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"/>
+            <TextBlock Grid.Row="6" Grid.Column="3" >&#x2126;</TextBlock>
+          </Grid>
+        </Border>
+      </Grid>
+    </Border>
+
+    <Image Grid.Column="1" Source="/Resources/VoltageDivider.PNG"/>
+  </Grid>
 </UserControl>

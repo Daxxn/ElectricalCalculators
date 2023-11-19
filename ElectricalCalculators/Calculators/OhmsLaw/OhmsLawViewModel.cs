@@ -16,15 +16,10 @@ namespace ElectricalCalculators.Calculators.OhmsLaw
       #region Local Props
       public event EventHandler ClearEvent = (s,e) => { };
       //public Dictionary<int, string> PrefixesDict = ElectricalCalculators.Models.Prefixes.AllPrefixes;
-      private double? _resistance = 0;
-      private double? _voltage = 0;
-      private double? _current = 0;
-      private double? _power = 0;
-
-      private int _voltagePrefix = 0;
-      private int _resistancePrefix = 0;
-      private int _currentPrefix = 0;
-      private int _powerPrefix = 0;
+      private double? _resistance = null;
+      private double? _voltage = null;
+      private double? _current = null;
+      private double? _power = null;
 
       private bool? _voltageInput = null;
       private bool? _resistanceInput = null;
@@ -50,42 +45,38 @@ namespace ElectricalCalculators.Calculators.OhmsLaw
       {
          try
          {
-            var GetValue = PrefixModel.Getvalue;
+            if (Voltage is null && Resistance is null && Current is null && Power is null) return;
             VoltageInput = Voltage != 0 && Voltage is not null;
             ResistanceInput = Resistance != 0 && Resistance is not null;
             CurrentInput = Current != 0 && Current is not null;
             PowerInput = Power != 0 && Power is not null;
 
             (Voltage, Resistance, Current, Power) = OhmsLawCalculator.Calculate(
-                GetValue(Voltage, VoltagePrefix),
-                GetValue(Resistance, ResistancePrefix),
-                GetValue(Current, CurrentPrefix),
-                GetValue(Power, PowerPrefix)
+                Voltage,
+                Resistance,
+                Current,
+                Power
             );
          }
          catch (ArgumentException)
          {
-            MessageBox.Show("Not enough data to calculate..");
+            MessageBox.Show("Not enough data to calculate.");
          }
-         catch (Exception)
+         catch (Exception e)
          {
-            throw;
+            MessageBox.Show($"Unable to calculate: {e.Message}");
          }
       }
 
       private void Clear()
       {
-         Voltage = 0;
-         VoltagePrefix = 0;
+         Voltage = null;
          VoltageInput = null;
-         Resistance = 0;
-         ResistancePrefix = 0;
+         Resistance = null;
          ResistanceInput = null;
-         Current = 0;
-         CurrentPrefix = 0;
+         Current = null;
          CurrentInput = null;
-         Power = 0;
-         PowerPrefix = 0;
+         Power = null;
          PowerInput = null;
          ClearEvent?.Invoke(this, new());
       }
@@ -128,46 +119,6 @@ namespace ElectricalCalculators.Calculators.OhmsLaw
          set
          {
             _power = value;
-            OnPropertyChanged();
-         }
-      }
-
-      public int VoltagePrefix
-      {
-         get => _voltagePrefix;
-         set
-         {
-            _voltagePrefix = value;
-            OnPropertyChanged();
-         }
-      }
-
-      public int ResistancePrefix
-      {
-         get => _resistancePrefix;
-         set
-         {
-            _resistancePrefix = value;
-            OnPropertyChanged();
-         }
-      }
-
-      public int CurrentPrefix
-      {
-         get => _currentPrefix;
-         set
-         {
-            _currentPrefix = value;
-            OnPropertyChanged();
-         }
-      }
-
-      public int PowerPrefix
-      {
-         get => _powerPrefix;
-         set
-         {
-            _powerPrefix = value;
             OnPropertyChanged();
          }
       }

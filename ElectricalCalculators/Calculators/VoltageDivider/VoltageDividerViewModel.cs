@@ -15,13 +15,12 @@ namespace ElectricalCalculators.Calculators.VoltageDivider
    public class VoltageDividerViewModel : ViewModel
    {
       #region Local Props
-      private double _vcc = 0;
-      private NumberDisplay _topRes = new(PrefixType.Resisitor);
-      private NumberDisplay _botRes = new(PrefixType.Resisitor);
+      private double? _vcc = null;
+      private double? _topRes = null;
+      private double? _botRes = null;
 
-      private double _outputVoltage = 0;
-      //private NumberDisplay _botResOutput = new(PrefixType.Resisitor);
-      private NumberDisplay _outputCurrent = new(PrefixType.All);
+      private double? _outputVoltage = null;
+      private double? _outputCurrent = null;
 
       #region Commands
       public Command CalcCmd { get; init; }
@@ -40,21 +39,20 @@ namespace ElectricalCalculators.Calculators.VoltageDivider
       #region Methods
       private void CalcOutput()
       {
-         OutputVoltage = DividerCalculator.CalcVoltageDivider(VCC, TopResistor.Raw, BottomResistor.Raw);
-         OutputCurrent.Raw = OhmsLawCalculator.CalcCurr(VCC, TopResistor.Raw + BottomResistor.Raw, 0);
-         OutputCurrent.CalcBase();
+         if (VCC is null && TopResistor is null && BottomResistor is null) return;
+         OutputVoltage = DividerCalculator.CalcVoltageDivider((double)VCC!, (double)TopResistor!, (double)BottomResistor!);
+         OutputCurrent = OhmsLawCalculator.CalcCurr(VCC, TopResistor + BottomResistor, null);
       }
 
       private void CalcResistor()
       {
-         // RBOT = (VOUT * RTOP) / (VIN - VOUT)
-         BottomResistor.Raw = (OutputVoltage * TopResistor.Raw) / (VCC - OutputVoltage);
-         BottomResistor.CalcBase();
+         if (VCC is null && TopResistor is null && OutputVoltage is null) return;
+         BottomResistor = (OutputVoltage * TopResistor) / (VCC - OutputVoltage);
       }
       #endregion
 
       #region Full Props
-      public double VCC
+      public double? VCC
       {
          get => _vcc;
          set
@@ -64,7 +62,7 @@ namespace ElectricalCalculators.Calculators.VoltageDivider
          }
       }
 
-      public NumberDisplay TopResistor
+      public double? TopResistor
       {
          get => _topRes;
          set
@@ -74,7 +72,7 @@ namespace ElectricalCalculators.Calculators.VoltageDivider
          }
       }
 
-      public NumberDisplay BottomResistor
+      public double? BottomResistor
       {
          get => _botRes;
          set
@@ -84,17 +82,7 @@ namespace ElectricalCalculators.Calculators.VoltageDivider
          }
       }
 
-      //public NumberDisplay BottomResistorOutput
-      //{
-      //    get => _botResOutput;
-      //    set
-      //    {
-      //        _botResOutput = value;
-      //        OnPropertyChanged();
-      //    }
-      //}
-
-      public double OutputVoltage
+      public double? OutputVoltage
       {
          get => _outputVoltage;
          set
@@ -104,7 +92,7 @@ namespace ElectricalCalculators.Calculators.VoltageDivider
          }
       }
 
-      public NumberDisplay OutputCurrent
+      public double? OutputCurrent
       {
          get => _outputCurrent;
          set

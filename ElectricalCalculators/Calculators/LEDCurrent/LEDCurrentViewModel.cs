@@ -48,6 +48,11 @@ public class LEDCurrentViewModel : ViewModel
       Power = LEDCurrentCalculator.CalcPower(VCC, ForwardCurrent);
    }
 
+   public void ColorSelected(double value)
+   {
+      ForwardVoltage = value;
+   }
+
    public void UpdateCalc(object sender, EventArgs e)
    {
       Calculate();
