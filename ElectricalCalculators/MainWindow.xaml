@@ -4,8 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ElectricalCalculators"
-        xmlns:stm32="clr-namespace:ElectricalCalculators.Calculators.STM32Clock"
+        xmlns:stm32="clr-namespace:ElectricalCalculators.Calculators.STM32"
         xmlns:lpf="clr-namespace:ElectricalCalculators.Calculators.LowPassFilter"
+        xmlns:regFb="clr-namespace:ElectricalCalculators.Calculators.RegFeedback"
+        xmlns:AdcConv="clr-namespace:ElectricalCalculators.Calculators.ADCConversionFactor"
         mc:Ignorable="d"
         ResizeMode="CanResizeWithGrip"
         Title="EE Tools" Height="600" Width="900">
@@ -33,6 +35,9 @@
       <TabItem Header="STM32 Timers">
         <stm32:STM32ClockView/>
       </TabItem>
+      <TabItem Header="STM32 FSMC LCD">
+        <stm32:Stm32FsmcLcdView/>
+      </TabItem>
       <TabItem Header="MOSFETs" x:Name="MOSFETTab"/>
       <TabItem Header="Dimensions" Name="DimsHelperTab"/>
       <TabItem Header="Max Frequency" x:Name="MaxFreqTab"/>
@@ -42,6 +47,12 @@
       <TabItem Header="Binary" x:Name="BinaryTab"/>
       <TabItem Header="Current Divider" x:Name="CurrentDividerTab"/>
       <TabItem Header="Metric (OLD)" x:Name="MetricPrefixTab"/>
+      <TabItem Header="Regulator Feedback">
+        <regFb:RegFeedbackView/>
+      </TabItem>
+      <TabItem Header="ADC Conv. Factor">
+        <AdcConv:AdcConversionView/>
+      </TabItem>
     </TabControl>
   </Grid>
 </Window>

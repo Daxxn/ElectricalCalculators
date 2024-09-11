@@ -70,7 +70,7 @@
           Grid.Row="2"
           Grid.Column="0"
         >
-          D1 Forward Current (mA)
+          D1 Forward Current
         </TextBlock>
         <TextBox
           Grid.Row="2"

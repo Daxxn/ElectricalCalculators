@@ -1,0 +1,322 @@
+﻿<UserControl x:Class="ElectricalCalculators.Calculators.RegFeedback.RegFeedbackView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ElectricalCalculators.Calculators.RegFeedback"
+             xmlns:conv="clr-namespace:ElectricalCalculators.Utils.Converters"
+             mc:Ignorable="d">
+  <UserControl.Resources>
+    <conv:SuffixConverter x:Key="SuffixConverter"/>
+    <conv:Percentconverter x:Key="Percentconverter"/>
+  </UserControl.Resources>
+  <UserControl.InputBindings>
+    <KeyBinding Command="{Binding Path=CalcCmd}" Key="Return"/>
+    <KeyBinding Command="{Binding Path=CalcCmd}" Key="Execute"/>
+    <KeyBinding Command="{Binding Path=ClearCmd}" Key="Esc"/>
+  </UserControl.InputBindings>
+  <TabControl>
+    <TabItem Header="Nearest Res" x:Name="NearestResTab">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <TextBlock Grid.ColumnSpan="2">Inputs</TextBlock>
+          <TextBlock Grid.Column="0" Grid.Row="1">
+            <Run>V</Run>
+            <Run BaselineAlignment="Subscript" FontSize="10">REF</Run>
+          </TextBlock>
+          <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Path=Vfb, UpdateSourceTrigger=LostFocus}"/>
+          <TextBlock Grid.Column="0" Grid.Row="2">
+            <Run>V</Run>
+            <Run BaselineAlignment="Subscript" FontSize="10">OUT</Run>
+          </TextBlock>
+          <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Path=Vout, UpdateSourceTrigger=LostFocus}"/>
+          <TextBlock Grid.Column="0" Grid.Row="3">R2 Min</TextBlock>
+          <Grid Grid.Column="1" Grid.Row="3">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Column="0" Text="{Binding Path=R2Min, UpdateSourceTrigger=LostFocus, Converter={StaticResource SuffixConverter}}"/>
+            <Button Grid.Column="1" Command="{Binding Path=UseSelectedResCmd}" FontSize="8" FontWeight="Light" ToolTip="Use the currently selected resistor.">Use Sel</Button>
+          </Grid>
+          <TextBlock Grid.Column="0" Grid.Row="4">Accuracy</TextBlock>
+          <Grid Grid.Column="1" Grid.Row="4">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" FontSize="10">±</TextBlock>
+            <TextBox Grid.Column="1" Text="{Binding Path=Accuracy, Converter={StaticResource Percentconverter}}"/>
+            <TextBlock Grid.Column="2" FontSize="10">%</TextBlock>
+          </Grid>
+
+          <Grid Grid.Row="5" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Command="{Binding Path=ClearCmd}">Clear</Button>
+            <Button Grid.Column="1" Margin="10,0,0,0" Command="{Binding Path=CalcCmd}">Calc</Button>
+          </Grid>
+        </Grid>
+
+        <Grid Grid.Column="1">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+
+          <TextBlock Grid.Row="0">Resistors</TextBlock>
+
+          <ListBox Grid.Row="1" ItemsSource="{Binding Path=Settings.Resistors}" SelectedIndex="{Binding Path=SelectedResIndex}">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock>
+                  <TextBlock.Text>
+                    <Binding>
+                      <Binding.Converter>
+                        <conv:SuffixConverter/>
+                      </Binding.Converter>
+                    </Binding>
+                  </TextBlock.Text>
+                </TextBlock>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+
+          <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="0" Command="{Binding Path=RemResCmd}">Delete</Button>
+            <Button Grid.Row="0" Grid.Column="2" Command="{Binding Path=AddResCmd}">Add</Button>
+            <TextBox Grid.Row="0" Grid.Column="1" MinWidth="50" Text="{Binding Path=TempResValue, UpdateSourceTrigger=LostFocus, Converter={StaticResource SuffixConverter}}"/>
+          </Grid>
+        </Grid>
+
+        <Grid Grid.Column="2">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+
+          <TextBlock Grid.Row="0">Matches</TextBlock>
+
+          <!--<ListBox Grid.Row="1" ItemsSource="{Binding Path=DivResults}" SelectionMode="Single">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                  </Grid.RowDefinitions>
+                  
+                </Grid>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>-->
+
+          <DataGrid
+            Grid.Row="1"
+            ItemsSource="{Binding Path=DivResults}"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            AutoGenerateColumns="False"
+          >
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="R1" Binding="{Binding Path=RTop, Converter={StaticResource SuffixConverter}}"/>
+              <DataGridTextColumn Header="R2" Binding="{Binding Path=RBot, Converter={StaticResource SuffixConverter}}"/>
+              <DataGridTextColumn Header="Vout" Binding="{Binding Path=Vout, Converter={StaticResource SuffixConverter}}"/>
+              <DataGridTextColumn Header="Err %" Binding="{Binding Path=Error, Converter={StaticResource Percentconverter}}"/>
+            </DataGrid.Columns>
+          </DataGrid>
+        </Grid>
+      </Grid>
+    </TabItem>
+    
+    <TabItem Header="Calc" x:Name="FeedbackCalcTab">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"/>
+          <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0">
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+              </Grid.RowDefinitions>
+              <TextBlock Grid.Row="0" Grid.Column="0">
+            <Run>Feedback Voltage</Run>
+            <Run Style="{StaticResource ParamRun}">(V</Run>
+            <Run Style="{StaticResource SubscriptRun}">FB</Run>
+            <Run>)</Run>
+              </TextBlock>
+              <TextBox
+            Grid.Row="0"
+            Grid.Column="1"
+            MinWidth="50"
+            GotFocus="TextBox_GotFocus"
+            Text="{Binding Path=Vfb, UpdateSourceTrigger=LostFocus, Converter={StaticResource SuffixConverter}}"
+          />
+
+              <TextBlock Grid.Row="1" Grid.Column="0">
+            <Run>Output Voltage</Run>
+            <Run></Run>
+            <Run Style="{StaticResource ParamRun}">(V</Run>
+            <Run Style="{StaticResource SubscriptRun}">OUT</Run>
+            <Run Style="{StaticResource ParamRun}">)</Run>
+              </TextBlock>
+              <TextBox
+            Grid.Row="1"
+            Grid.Column="1"
+            MinWidth="50"
+            GotFocus="TextBox_GotFocus"
+            Text="{Binding Path=Vout, UpdateSourceTrigger=LostFocus, Converter={StaticResource SuffixConverter}}"
+          />
+
+              <TextBlock Grid.Row="2" Grid.Column="0">
+            <Run>Top Resistor</Run>
+            <Run Style="{StaticResource ParamRun}">(R1)</Run>
+              </TextBlock>
+              <TextBox
+            Grid.Row="2"
+            Grid.Column="1"
+            MinWidth="50"
+            GotFocus="TextBox_GotFocus"
+            Text="{Binding Path=R1, UpdateSourceTrigger=LostFocus, Converter={StaticResource SuffixConverter}}"
+          />
+
+              <TextBlock Grid.Row="3" Grid.Column="0">
+            <Run>Bottom Resistor</Run>
+            <Run Style="{StaticResource ParamRun}">(R2)</Run>
+              </TextBlock>
+              <TextBox
+            Grid.Row="3"
+            Grid.Column="1"
+            MinWidth="50"
+            GotFocus="TextBox_GotFocus"
+            Text="{Binding Path=R2, UpdateSourceTrigger=LostFocus, Converter={StaticResource SuffixConverter}}"
+          />
+            </Grid>
+
+            <Border Grid.Row="1">
+              <Grid>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto"/>
+                  <RowDefinition Height="Auto"/>
+                  <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource SmallTitleText}">Calc Option:</TextBlock>
+
+                <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="1.5" Padding="1,2.5,1,1" Margin="0,2">
+                  <Grid>
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="*"/>
+                      <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <RadioButton
+                  x:Name="RadioR1"
+                  Grid.Column="0"
+                  GroupName="CalcOption"
+                  IsChecked="True"
+                  Checked="RadioButton_Checked"
+                  Unchecked="RadioButton_Checked"
+                >
+                      <TextBlock Style="{StaticResource RadioButtonText}">R1</TextBlock>
+                    </RadioButton>
+                    <RadioButton
+                  x:Name="RadioVout"
+                  Grid.Column="1"
+                  GroupName="CalcOption"
+                  Checked="RadioButton_Checked"
+                  Unchecked="RadioButton_Checked"
+                >
+                      <TextBlock Style="{StaticResource RadioButtonText}">
+                    <Run Style="{StaticResource ParamRun}">V</Run>
+                    <Run Style="{StaticResource SubscriptRun}">OUT</Run>
+                      </TextBlock>
+                    </RadioButton>
+                  </Grid>
+                </Border>
+
+                <Grid Grid.Row="2">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                  </Grid.ColumnDefinitions>
+                  <Button Grid.Column="0" Command="{Binding Path=ClearCmd}">Clear</Button>
+                  <Button Grid.Column="1" Margin="10,0,0,0" Command="{Binding Path=CalcCmd}">Calc</Button>
+                </Grid>
+              </Grid>
+            </Border>
+          </Grid>
+        </Border>
+
+        <Border Grid.Column="1" Margin="10">
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Background="White">
+              <Image HorizontalAlignment="Left" VerticalAlignment="Top" MaxWidth="200" Source="\Resources\RegFeedback_R1_Formula.png"/>
+            </Border>
+            <Border Grid.Row="1" Background="White" Margin="0,20,0,0">
+              <Image HorizontalAlignment="Left" VerticalAlignment="Top" MaxWidth="200" Source="\Resources\RegFeedback_Vout_Formula.png"/>
+            </Border>
+          </Grid>
+        </Border>
+      </Grid>
+    </TabItem>
+  </TabControl>
+</UserControl>

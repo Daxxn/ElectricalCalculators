@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ElectricalCalculators.Calculators.STM32Clock;
+namespace ElectricalCalculators.Calculators.STM32;
 
 /// <summary>
 /// Interaction logic for STM32ClockView.xaml

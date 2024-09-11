@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace ElectricalCalculators.Models
 {
-    public struct Constants
-    {
-        public const double _milliToInchMult = 25.4;
-        public const double _inchToMilli = 39.37;
-        public const double _milliToMil = 0.0254;
-        public const double _milToMilli = 0.03937;
-    }
+   public struct Constants
+   {
+      public const double _milliToInchMult = 25.4;
+      public const double _inchToMilli = 39.37;
+      public const double _milliToMil = 0.0254;
+      public const double _milToMilli = 0.03937;
+
+      public const double NumberToNano = 0.000000001;
+   }
 }

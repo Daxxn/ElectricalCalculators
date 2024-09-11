@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ElectricalCalculators.Calculators.STM32Clock;
+namespace ElectricalCalculators.Calculators.STM32;
 
 public enum InputType
 {

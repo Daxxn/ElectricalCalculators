@@ -12,7 +12,17 @@
     <None Remove="Resources\LEDCurrentLim.PNG" />
     <None Remove="Resources\MetricPrefixes.png" />
     <None Remove="Resources\OhmsLawWheel.jpg" />
+    <None Remove="Resources\RegFeedback_R1_Formula.png" />
+    <None Remove="Resources\RegFeedback_Vout_Formula.png" />
     <None Remove="Resources\SimpleMOSFET.PNG" />
+    <None Remove="Resources\STM32_FSMC\FSMC_16b_PointerMap.png" />
+    <None Remove="Resources\STM32_FSMC\FSMC_8b_PointerMap.png" />
+    <None Remove="Resources\STM32_FSMC\FSMC_BankMap.png" />
+    <None Remove="Resources\STM32_FSMC\FSMC_LCD_Timings_Example.png" />
+    <None Remove="Resources\STM32_FSMC\FSMC_MemoryBanks.png" />
+    <None Remove="Resources\STM32_FSMC\FSMC_Timing_Formula.png" />
+    <None Remove="Resources\STM32_FSMC\STM32F412_FSMC_MemoryMapping.JPG" />
+    <None Remove="Resources\STM32_FSMC\STM32F412_MemoryMapping.JPG" />
     <None Remove="Resources\VoltageDivider.PNG" />
   </ItemGroup>
 
@@ -21,7 +31,21 @@
     <Resource Include="Resources\LEDCurrentLim.PNG" />
     <Resource Include="Resources\MetricPrefixes.png" />
     <Resource Include="Resources\OhmsLawWheel.jpg" />
+    <Resource Include="Resources\RegFeedback_R1_Formula.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\RegFeedback_Vout_Formula.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\SimpleMOSFET.PNG" />
+    <Resource Include="Resources\STM32_FSMC\FSMC_16b_PointerMap.png" />
+    <Resource Include="Resources\STM32_FSMC\FSMC_8b_PointerMap.png" />
+    <Resource Include="Resources\STM32_FSMC\FSMC_BankMap.png" />
+    <Resource Include="Resources\STM32_FSMC\FSMC_LCD_Timings_Example.png" />
+    <Resource Include="Resources\STM32_FSMC\FSMC_MemoryBanks.png" />
+    <Resource Include="Resources\STM32_FSMC\FSMC_Timing_Formula.png" />
+    <Resource Include="Resources\STM32_FSMC\STM32F412_FSMC_MemoryMapping.JPG" />
+    <Resource Include="Resources\STM32_FSMC\STM32F412_MemoryMapping.JPG" />
     <Resource Include="Resources\VoltageDivider.PNG" />
   </ItemGroup>
 

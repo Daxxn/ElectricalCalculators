@@ -47,7 +47,7 @@ namespace ElectricalCalculators.Calculators.Prefixes
       //{
       //    if (sender is ListBox lb)
       //    {
-      //        VM.HistorySelection(lb.SelectedItem as string);
+      //        RegFeedbackVM.HistorySelection(lb.SelectedItem as string);
       //    }
       //}
    }

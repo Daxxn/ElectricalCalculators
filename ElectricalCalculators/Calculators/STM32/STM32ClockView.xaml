@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ElectricalCalculators.Calculators.STM32Clock.STM32ClockView"
+﻿<UserControl x:Class="ElectricalCalculators.Calculators.STM32.STM32ClockView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"

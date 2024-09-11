@@ -23,7 +23,7 @@ namespace ElectricalCalculators.Models.LEDCurrent
          return num;
       }
 
-      //public static Number Calc(double vcc, double fVolt, double fCurr)
+      //public static Number CalcAddresses(double vcc, double fVolt, double fCurr)
       //{
       //   var num = new Number(PrefixType.Resisitor);
       //   num.ParseNumber((vcc - fVolt) / (fCurr * 0.001));
@@ -32,7 +32,7 @@ namespace ElectricalCalculators.Models.LEDCurrent
 
       public static double? Calc(double? vcc, double? fVolt, double? fCurr)
       {
-         return (vcc - fVolt) / (fCurr * 0.001);
+         return (vcc - fVolt) / fCurr;
       }
 
       //public static Number CalcPower(double vcc, double fCurr)

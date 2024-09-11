@@ -1,0 +1,260 @@
+﻿<UserControl x:Class="ElectricalCalculators.Calculators.STM32.Stm32FsmcLcdView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:conv="clr-namespace:ElectricalCalculators.Utils.Converters"
+             xmlns:utils="clr-namespace:ElectricalCalculators.Utils"
+             xmlns:stm32Enums="clr-namespace:ElectricalCalculators.Models.STM32Enums"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+  <UserControl.Resources>
+    <conv:VisibilityConverter x:Key="VisibilityConverter"/>
+    <conv:HexConverter x:Key="HexConverter"/>
+    <conv:SuffixConverter x:Key="SuffixConverter"/>
+    <conv:DecimalRoundConverter x:Key="DecimalRoundConverter"/>
+  </UserControl.Resources>
+  <TabControl>
+    <TabItem Header="LCD Address">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0">Data Bus Size</TextBlock>
+            <Border Grid.Row="0" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Padding="1" Margin="1">
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*"/>
+                  <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <RadioButton Grid.Column="0" GroupName="Is16Bit" Content="16Bit" IsChecked="{Binding Path=Is16Bit}"/>
+                <RadioButton Grid.Column="1" GroupName="Is16Bit" Content="8Bit" IsChecked="{Binding Path=!Is16Bit}"/>
+              </Grid>
+            </Border>
+
+            <TextBlock Grid.Row="1" Grid.ColumnSpan="2">Memory Bank</TextBlock>
+            <ComboBox
+              Grid.Row="2"
+              Grid.ColumnSpan="2"
+              ItemsSource="{Binding Source={utils:EnumBindingSource {x:Type stm32Enums:Stm32FsmcBank}}}"
+              SelectedItem="{Binding Path=Bank}"
+            />
+
+            <TextBlock Grid.Row="3" Grid.ColumnSpan="2">Chip Select</TextBlock>
+            <ComboBox
+              Grid.Row="4"
+              Grid.ColumnSpan="2"
+              ItemsSource="{Binding Source={utils:EnumBindingSource {x:Type stm32Enums:Stm32FsmcChipSelect}}}"
+              SelectedItem="{Binding Path=ChipSelect}"
+            />
+
+            <TextBlock Grid.Row="5" Grid.Column="0">Address Pin</TextBlock>
+            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path=AddressPin, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <Separator Grid.Row="6" Grid.ColumnSpan="2"/>
+
+            <TextBlock Grid.Row="7" Grid.Column="0">Command Address</TextBlock>
+            <Grid Grid.Row="7" Grid.Column="1">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+              <TextBlock Grid.Column="0" Text="{Binding Path=CommandAddress, Converter={StaticResource HexConverter}}" Style="{StaticResource OutputText}"/>
+              <Button Grid.Column="1" Command="{Binding Path=CopyPtrCmd}" CommandParameter="CMD">Copy</Button>
+            </Grid>
+
+            <TextBlock Grid.Row="8" Grid.Column="0">Data Address</TextBlock>
+            <Grid Grid.Row="8" Grid.Column="1">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+              <TextBlock Grid.Column="0" Text="{Binding Path=DataAddress, Converter={StaticResource HexConverter}}" Style="{StaticResource OutputText}"/>
+              <Button Grid.Column="1" Command="{Binding Path=CopyPtrCmd}" CommandParameter="DATA">Copy</Button>
+            </Grid>
+          </Grid>
+        </Border>
+
+        <TabControl Grid.Row="1">
+          <TabItem Header="Pointer Map">
+            <Grid>
+              <Image Source="/Resources/STM32_FSMC/FSMC_16b_PointerMap.png">
+                <Image.Style>
+                  <Style TargetType="Image">
+                    <Style.Triggers>
+                      <DataTrigger Binding="{Binding Path=Is16Bit}" Value="True">
+                        <Setter Property="Visibility" Value="Visible"/>
+                      </DataTrigger>
+                      <DataTrigger Binding="{Binding Path=Is16Bit}" Value="False">
+                        <Setter Property="Visibility" Value="Hidden"/>
+                      </DataTrigger>
+                    </Style.Triggers>
+                  </Style>
+                </Image.Style>
+              </Image>
+              <Image Source="/Resources/STM32_FSMC/FSMC_8b_PointerMap.png">
+                <Image.Style>
+                  <Style TargetType="Image">
+                    <Style.Triggers>
+                      <DataTrigger Binding="{Binding Path=Is16Bit}" Value="False">
+                        <Setter Property="Visibility" Value="Visible"/>
+                      </DataTrigger>
+                      <DataTrigger Binding="{Binding Path=Is16Bit}" Value="True">
+                        <Setter Property="Visibility" Value="Hidden"/>
+                      </DataTrigger>
+                    </Style.Triggers>
+                  </Style>
+                </Image.Style>
+              </Image>
+            </Grid>
+          </TabItem>
+          <TabItem Header="Memory Banks">
+            <Image Source="/Resources/STM32_FSMC/FSMC_BankMap.png"/>
+          </TabItem>
+        </TabControl>
+      </Grid>
+    </TabItem>
+    <TabItem Header="LCD Timings">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0">
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="Auto"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0">
+              Clock Freq (HCLK)
+            </TextBlock>
+            <TextBox
+              Grid.Row="0"
+              Grid.Column="1"
+              FontFamily="Fira Code Retina"
+              Text="{Binding Path=ClockFreq, Converter={StaticResource SuffixConverter}}"
+            />
+            <TextBlock Grid.Row="0" Grid.Column="2" Style="{StaticResource UnitsText}">Hz</TextBlock>
+
+            <TextBlock Grid.Row="1" Grid.Column="0">
+              <Run Text="Write Cycle (T"/>
+              <Run Text="WC" FontSize="9" BaselineAlignment="Subscript"/>
+              <Run Text=")"/>
+            </TextBlock>
+            <TextBox
+              Grid.Row="1"
+              Grid.Column="1"
+              FontFamily="Fira Code Retina"
+              Text="{Binding Path=WriteCycle, Converter={StaticResource SuffixConverter}}"
+            />
+            <TextBlock Grid.Row="1" Grid.Column="2" Style="{StaticResource UnitsText}">ns</TextBlock>
+
+            <TextBlock Grid.Row="2" Grid.Column="0">
+              <Run Text="Read Cycle (T"/>
+              <Run Text="RC" FontSize="9" BaselineAlignment="Subscript"/>
+              <Run Text=")"/>
+            </TextBlock>
+            <TextBox
+              Grid.Row="2"
+              Grid.Column="1"
+              FontFamily="Fira Code Retina"
+              Text="{Binding Path=ReadCycle, Converter={StaticResource SuffixConverter}}"
+            />
+            <TextBlock Grid.Row="2" Grid.Column="2" Style="{StaticResource UnitsText}">ns</TextBlock>
+
+            <TextBlock Grid.Row="3" Grid.Column="0">Control Pulse Durations</TextBlock>
+            <Grid Grid.Row="3" Grid.Column="1">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+              </Grid.ColumnDefinitions>
+
+              <TextBlock Grid.Column="0">High Pulse</TextBlock>
+              <TextBox Grid.Column="1" Text="{Binding Path=ControlHighPulse, Converter={StaticResource SuffixConverter}}"/>
+              <TextBlock Grid.Column="2">Low Pulse</TextBlock>
+              <TextBox Grid.Column="3" Text="{Binding Path=ControlLowPulse, Converter={StaticResource SuffixConverter}}"/>
+            </Grid>
+            <TextBlock Grid.Row="3" Grid.Column="2" Style="{StaticResource UnitsText}">ns</TextBlock>
+
+            <Separator Grid.Row="4" Grid.ColumnSpan="3"/>
+
+            <TextBlock Grid.Row="5" Grid.Column="0">Address Setup Time</TextBlock>
+            <TextBlock
+              Grid.Row="5"
+              Grid.Column="1"
+              Text="{Binding Path=AddressSetupTime, Converter={StaticResource DecimalRoundConverter}, ConverterParameter=0}"
+              Style="{StaticResource OutputText}"
+            />
+            <TextBlock Grid.Row="5" Grid.Column="2" Style="{StaticResource UnitsText}">Clocks</TextBlock>
+
+            <TextBlock Grid.Row="6" Grid.Column="0">Data Setup Time</TextBlock>
+            <TextBlock
+              Grid.Row="6"
+              Grid.Column="1"
+              Text="{Binding Path=DataSetupTime, Converter={StaticResource DecimalRoundConverter}, ConverterParameter=0}"
+              Style="{StaticResource OutputText}"
+            />
+            <TextBlock Grid.Row="6" Grid.Column="2" Style="{StaticResource UnitsText}">Clocks</TextBlock>
+
+            <TextBlock Grid.Row="7" Grid.Column="0">Bus Turn-Around Time</TextBlock>
+            <TextBlock
+              Grid.Row="7"
+              Grid.Column="1"
+              Text="{Binding Path=BusTurnAroundTime, Converter={StaticResource DecimalRoundConverter}, ConverterParameter=0}"
+              Style="{StaticResource OutputText}"
+            />
+            <TextBlock Grid.Row="7" Grid.Column="2" Style="{StaticResource UnitsText}">Clocks</TextBlock>
+          </Grid>
+        </Border>
+
+        <Grid Grid.Row="1">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+          </Grid.ColumnDefinitions>
+          <Image Grid.Column="0" Source="/Resources/STM32_FSMC/FSMC_Timing_Formula.png"/>
+          <Image Grid.Column="1" Source="/Resources/STM32_FSMC/FSMC_LCD_Timings_Example.png"/>
+        </Grid>
+      </Grid>
+    </TabItem>
+  </TabControl>
+</UserControl>
