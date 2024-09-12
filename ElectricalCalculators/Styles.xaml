@@ -80,4 +80,13 @@
   <Style TargetType="Separator">
     <Setter Property="Margin" Value="0,10"/>
   </Style>
+
+  <Style TargetType="Run" x:Key="TextSubScript">
+    <Setter Property="BaselineAlignment" Value="Subscript"/>
+    <Setter Property="FontSize" Value="10"/>
+  </Style>
+
+  <Style TargetType="TextBlock" x:Key="TextSdramTimingLabel">
+    <Setter Property="FontSize" Value="14"/>
+  </Style>
 </ResourceDictionary>

@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <None Remove="Resources\CurrentDivider.PNG" />
+    <None Remove="Resources\Icons\right-arrow.png" />
+    <None Remove="Resources\Icons\right-arrow.svg" />
     <None Remove="Resources\LEDCurrentLim.PNG" />
     <None Remove="Resources\MetricPrefixes.png" />
     <None Remove="Resources\OhmsLawWheel.jpg" />
@@ -27,26 +29,60 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\CurrentDivider.PNG" />
-    <Resource Include="Resources\LEDCurrentLim.PNG" />
-    <Resource Include="Resources\MetricPrefixes.png" />
-    <Resource Include="Resources\OhmsLawWheel.jpg" />
+    <Resource Include="Resources\CurrentDivider.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\right-arrow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\right-arrow.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\LEDCurrentLim.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\MetricPrefixes.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\OhmsLawWheel.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\RegFeedback_R1_Formula.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\RegFeedback_Vout_Formula.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\SimpleMOSFET.PNG" />
-    <Resource Include="Resources\STM32_FSMC\FSMC_16b_PointerMap.png" />
-    <Resource Include="Resources\STM32_FSMC\FSMC_8b_PointerMap.png" />
-    <Resource Include="Resources\STM32_FSMC\FSMC_BankMap.png" />
-    <Resource Include="Resources\STM32_FSMC\FSMC_LCD_Timings_Example.png" />
-    <Resource Include="Resources\STM32_FSMC\FSMC_MemoryBanks.png" />
-    <Resource Include="Resources\STM32_FSMC\FSMC_Timing_Formula.png" />
-    <Resource Include="Resources\STM32_FSMC\STM32F412_FSMC_MemoryMapping.JPG" />
-    <Resource Include="Resources\STM32_FSMC\STM32F412_MemoryMapping.JPG" />
-    <Resource Include="Resources\VoltageDivider.PNG" />
+    <Resource Include="Resources\SimpleMOSFET.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\STM32_FSMC\FSMC_16b_PointerMap.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\STM32_FSMC\FSMC_8b_PointerMap.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\STM32_FSMC\FSMC_BankMap.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\STM32_FSMC\FSMC_LCD_Timings_Example.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\STM32_FSMC\FSMC_MemoryBanks.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\STM32_FSMC\FSMC_Timing_Formula.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\STM32_FSMC\STM32F412_FSMC_MemoryMapping.JPG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\STM32_FSMC\STM32F412_MemoryMapping.JPG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\VoltageDivider.PNG">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -58,9 +94,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ElectricalSuffixParser" Version="1.0.1" />
-    <PackageReference Include="JsonReaderLibrary" Version="1.1.0" />
-    <PackageReference Include="MVVMLibrary" Version="1.1.0" />
+    <PackageReference Include="ElectricalSuffixParser" Version="1.1.0" />
+    <PackageReference Include="JsonReaderLibrary" Version="1.1.1" />
+    <PackageReference Include="MVVMLibrary" Version="1.2.1" />
   </ItemGroup>
 
 </Project>

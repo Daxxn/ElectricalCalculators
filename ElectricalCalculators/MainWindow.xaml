@@ -38,6 +38,9 @@
       <TabItem Header="STM32 FSMC LCD">
         <stm32:Stm32FsmcLcdView/>
       </TabItem>
+      <TabItem Header="STM32 SDRAM Timings">
+        <stm32:STM32SdramConfigView/>
+      </TabItem>
       <TabItem Header="MOSFETs" x:Name="MOSFETTab"/>
       <TabItem Header="Dimensions" Name="DimsHelperTab"/>
       <TabItem Header="Max Frequency" x:Name="MaxFreqTab"/>
