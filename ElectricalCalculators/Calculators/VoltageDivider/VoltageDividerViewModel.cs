@@ -22,6 +22,9 @@ namespace ElectricalCalculators.Calculators.VoltageDivider
       private double? _outputVoltage = null;
       private double? _outputCurrent = null;
 
+      private double? _ratio = null;
+      private double? _reciprocal = null;
+
       #region Commands
       public Command CalcCmd { get; init; }
       public Command CalcRatioCmd { get; init; }
@@ -41,15 +44,24 @@ namespace ElectricalCalculators.Calculators.VoltageDivider
       #region Methods
       private void CalcOutput()
       {
-         if (VCC is null && TopResistor is null && BottomResistor is null) return;
+         if (VCC is null || TopResistor is null || BottomResistor is null) return;
          OutputVoltage = DividerCalculator.CalcVoltageDivider((double)VCC!, (double)TopResistor!, (double)BottomResistor!);
          OutputCurrent = OhmsLawCalculator.CalcCurr(VCC, TopResistor + BottomResistor, 0);
+
+         if (TopResistor is null || BottomResistor is null) return;
+         DividerRatio = BottomResistor / (BottomResistor + TopResistor);
+         ReciprocalRatio = 1 / DividerRatio;
       }
 
       private void CalcResistor()
       {
-         if (VCC is null && TopResistor is null && OutputVoltage is null) return;
+         if (VCC is null || TopResistor is null || OutputVoltage is null) return;
          BottomResistor = (OutputVoltage * TopResistor) / (VCC - OutputVoltage);
+         OutputCurrent = OhmsLawCalculator.CalcCurr(VCC, TopResistor + BottomResistor, 0);
+
+         if (TopResistor is null || BottomResistor is null) return;
+         DividerRatio = BottomResistor / (BottomResistor + TopResistor);
+         ReciprocalRatio = 1 / DividerRatio;
       }
 
       private void Clear()
@@ -59,6 +71,8 @@ namespace ElectricalCalculators.Calculators.VoltageDivider
          BottomResistor = null;
          OutputVoltage = null;
          OutputCurrent = null;
+         DividerRatio = null;
+         ReciprocalRatio = null;
       }
       #endregion
 
@@ -109,6 +123,26 @@ namespace ElectricalCalculators.Calculators.VoltageDivider
          set
          {
             _outputCurrent = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public double? DividerRatio
+      {
+         get => _ratio;
+         set
+         {
+            _ratio = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public double? ReciprocalRatio
+      {
+         get => _reciprocal;
+         set
+         {
+            _reciprocal = value;
             OnPropertyChanged();
          }
       }

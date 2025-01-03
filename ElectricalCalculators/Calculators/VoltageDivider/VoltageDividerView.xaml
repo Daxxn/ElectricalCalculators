@@ -15,6 +15,7 @@
       MethodName="GetResistorPrefixes"
     />
     <conv:SuffixConverter x:Key="SuffixConverter"/>
+    <conv:DecimalRoundConverter x:Key="DecimalRoundConverter"/>
   </UserControl.Resources>
   <Grid>
     <Grid.ColumnDefinitions>
@@ -26,7 +27,7 @@
       <Grid>
         <Grid.RowDefinitions>
           <RowDefinition Height="*"/>
-          <RowDefinition Height="*"/>
+          <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Border Grid.Column="0" Style="{StaticResource ModuleBorder}">
           <Grid>
@@ -37,6 +38,8 @@
               <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
               <RowDefinition Height="Auto"/>
               <RowDefinition Height="Auto"/>
               <RowDefinition Height="Auto"/>
@@ -97,6 +100,32 @@
                 </TextBlock>
               </TextBlock.ToolTip>
               A
+            </TextBlock>
+
+            <Separator Grid.Row="8" Grid.ColumnSpan="4"/>
+
+            <TextBlock Grid.Row="9" Grid.Column="0">Ratio</TextBlock>
+            <TextBlock Grid.Row="9" Grid.Column="1" Text="{Binding Path=DividerRatio, Converter={StaticResource DecimalRoundConverter}, ConverterParameter=8}" Style="{StaticResource OutputText}"/>
+            <TextBlock Grid.Row="9" Grid.Column="3" Padding="0,1,1,1" Margin="0,1,1,1">
+              <TextBlock.ToolTip>
+                <TextBlock>
+                  <Run>Full </Run>
+                  <Run Text="{Binding Path=DividerRatio, Converter={StaticResource SuffixConverter}, UpdateSourceTrigger=LostFocus}"/>
+                </TextBlock>
+              </TextBlock.ToolTip>
+              *
+            </TextBlock>
+
+            <TextBlock Grid.Row="10" Grid.Column="0">Reciprocal</TextBlock>
+            <TextBlock Grid.Row="10" Grid.Column="1" Text="{Binding Path=ReciprocalRatio, Converter={StaticResource DecimalRoundConverter}, ConverterParameter=8}" Style="{StaticResource OutputText}"/>
+            <TextBlock Grid.Row="10" Grid.Column="3" Padding="0,1,1,1" Margin="0,1,1,1">
+              <TextBlock.ToolTip>
+                <TextBlock>
+                  <Run>Full </Run>
+                  <Run Text="{Binding Path=ReciprocalRatio, Converter={StaticResource DecimalRoundConverter}, UpdateSourceTrigger=LostFocus}"/>
+                </TextBlock>
+              </TextBlock.ToolTip>
+              *
             </TextBlock>
           </Grid>
         </Border>
