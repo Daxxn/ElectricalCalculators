@@ -25,7 +25,22 @@
     <None Remove="Resources\STM32_FSMC\FSMC_Timing_Formula.png" />
     <None Remove="Resources\STM32_FSMC\STM32F412_FSMC_MemoryMapping.JPG" />
     <None Remove="Resources\STM32_FSMC\STM32F412_MemoryMapping.JPG" />
+    <None Remove="Resources\STM32_QSPI_CalcSize.webp" />
     <None Remove="Resources\VoltageDivider.PNG" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="OptionViews\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ElectricalSuffixParser" Version="1.1.0" />
+    <PackageReference Include="JsonReaderLibrary" Version="1.1.1" />
+    <PackageReference Include="MVVMLibrary" Version="1.2.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -80,23 +95,12 @@
     <Resource Include="Resources\STM32_FSMC\STM32F412_MemoryMapping.JPG">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\STM32_QSPI_CalcSize.webp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\VoltageDivider.PNG">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="..\.editorconfig" Link=".editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="OptionViews\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="ElectricalSuffixParser" Version="1.1.0" />
-    <PackageReference Include="JsonReaderLibrary" Version="1.1.1" />
-    <PackageReference Include="MVVMLibrary" Version="1.2.1" />
   </ItemGroup>
 
 </Project>
