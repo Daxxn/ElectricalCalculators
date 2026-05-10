@@ -215,6 +215,7 @@
       </Button>
 
       <Button Canvas.Bottom="5" Canvas.Left="5" Width="100" Padding="6" Command="{Binding Path=CalcCmd}">Calc</Button>
+      <Button Canvas.Bottom="5" Canvas.Left="120" Width="100" Padding="6" Command="{Binding Path=ClearCmd}">Clear</Button>
       <!--#endregion-->
     </Canvas>
 

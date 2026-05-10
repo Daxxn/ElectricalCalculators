@@ -24,6 +24,7 @@ namespace ElectricalCalculators.Calculators.DimsHelper
       #region Commands
       public Command ShowPackageCmd { get; init; }
       public Command CalcCmd { get; init; }
+      public Command ClearCmd { get; init; }
       #endregion
       #endregion
 
@@ -32,6 +33,7 @@ namespace ElectricalCalculators.Calculators.DimsHelper
       {
          ShowPackageCmd = new(() => ShowPackage = !ShowPackage);
          CalcCmd = new(Calc);
+         ClearCmd = new(Clear);
       }
       #endregion
 
@@ -40,6 +42,14 @@ namespace ElectricalCalculators.Calculators.DimsHelper
       {
          (InnerWidth, OuterWidth, PadWidth) = DimsCalculator.Calc(InnerWidth, OuterWidth, PadWidth);
          PadCentersWidth = DimsCalculator.CalcPadHalfCoordinate(InnerWidth, OuterWidth);
+      }
+
+      private void Clear()
+      {
+         InnerWidth = null;
+         OuterWidth = null;
+         PadWidth = null;
+         PadCentersWidth = null;
       }
       #endregion
 
@@ -67,8 +77,6 @@ namespace ElectricalCalculators.Calculators.DimsHelper
          {
             _innerWidth = value;
             OnPropertyChanged();
-            OnPropertyChanged(nameof(CenterLine));
-            OnPropertyChanged(nameof(PadCentersWidth));
          }
       }
 
@@ -79,8 +87,6 @@ namespace ElectricalCalculators.Calculators.DimsHelper
          {
             _outerWidth = value;
             OnPropertyChanged();
-            OnPropertyChanged(nameof(CenterLine));
-            OnPropertyChanged(nameof(PadCentersWidth));
          }
       }
 
@@ -91,6 +97,7 @@ namespace ElectricalCalculators.Calculators.DimsHelper
          {
             _padCentersWidth = value;
             OnPropertyChanged();
+            OnPropertyChanged(nameof(CenterLine));
          }
       }
 
