@@ -36,12 +36,11 @@ namespace ElectricalCalculators
       #region Methods
       public void OnStartup()
       {
-         Settings = SettingsManager.OnStartup<SettingsModel>(nameof(ElectricalCalculators));
+         _settings = App.Settings;
       }
 
       public void OnExit()
       {
-         SettingsManager.OnExit(Settings, nameof(ElectricalCalculators));
       }
       #endregion
 
@@ -49,11 +48,6 @@ namespace ElectricalCalculators
       public SettingsModel Settings
       {
          get => _settings;
-         set
-         {
-            _settings = value;
-            OnPropertyChanged();
-         }
       }
       #endregion
    }

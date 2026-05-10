@@ -19,6 +19,7 @@ namespace ElectricalCalculators
    /// </summary>
    public partial class App : Application
    {
+      public static SettingsModel Settings { get; set; } = new();
       public static MainViewModel MainVM { get; private set; } = new();
       public static SuffixModelManager SuffixManager = new();
 
@@ -26,12 +27,13 @@ namespace ElectricalCalculators
       {
          try
          {
+            Settings = SettingsManager.OnStartup<SettingsModel>(nameof(ElectricalCalculators));
             MainVM.OnStartup();
             SuffixManager.OnStartup(nameof(ElectricalCalculators));
          }
          catch (Exception ex)
          {
-            MessageBox.Show($"unable to load Suffix data: {ex.Message}");
+            MessageBox.Show($"unable to start cleanly: {ex.Message}");
          }
          base.OnStartup(e);
       }
@@ -42,10 +44,11 @@ namespace ElectricalCalculators
          {
             MainVM.OnExit();
             SuffixManager.OnExit(nameof(ElectricalCalculators));
+            SettingsManager.OnExit(Settings, nameof(ElectricalCalculators));
          }
          catch (Exception ex)
          {
-            MessageBox.Show($"unable to save Suffix data: {ex.Message}");
+            MessageBox.Show($"unable to exit cleanly: {ex.Message}");
          }
          base.OnExit(e);
       }

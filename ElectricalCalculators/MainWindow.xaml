@@ -44,6 +44,9 @@
       <TabItem Header="STM32 QSPI">
         <stm32:STM32QSPIConfigView/>
       </TabItem>
+      <TabItem Header="STM32 Examples">
+        <stm32:STM32DriverExamplesView/>
+      </TabItem>
       <TabItem Header="MOSFETs" x:Name="MOSFETTab"/>
       <TabItem Header="Dimensions" Name="DimsHelperTab"/>
       <TabItem Header="Max Frequency" x:Name="MaxFreqTab"/>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,11 @@ namespace ElectricalCalculators.Utils
       //   1100000d,1200000d,1300000d,1500000d,1600000d,1800000d,2000000d,2200000d,2400000d,2700000d,3000000d,3300000d,3600000d,3900000d,4300000d,4700000d,5100000d,5600000d,6200000d,6800000d,7500000d,8200000d,9100000d,10000000d,20000000d
       //};
 
+      private string _stm32DriverExamplesRootFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "STM32Cube", "Repository");
+      private string _stm32ExampleFolderSearchPattern = "STM32Cube_FW_*";
+      private string _stm32ExampleOpenFolderExtension = "Projects";
+      private bool _stm32ExampleOpenWithFolderExtension = true;
+
       public string SavePath { get; set; }
       public string LastSavePath { get; set; }
 
@@ -45,6 +51,46 @@ namespace ElectricalCalculators.Utils
          set
          {
             _resistors = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public string STM32DriverExamplesRootFolder
+      {
+         get => _stm32DriverExamplesRootFolder;
+         set
+         {
+            _stm32DriverExamplesRootFolder = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public string STM32ExampleFolderSearchPattern
+      {
+         get => _stm32ExampleFolderSearchPattern;
+         set
+         {
+            _stm32ExampleFolderSearchPattern = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public string STM32ExampleOpenFolderExtension
+      {
+         get => _stm32ExampleOpenFolderExtension;
+         set
+         {
+            _stm32ExampleOpenFolderExtension = value;
+            OnPropertyChanged();
+         }
+      }
+
+      public bool STM32ExampleOpenWithFolderExtension
+      {
+         get => _stm32ExampleOpenWithFolderExtension;
+         set
+         {
+            _stm32ExampleOpenWithFolderExtension = value;
             OnPropertyChanged();
          }
       }
